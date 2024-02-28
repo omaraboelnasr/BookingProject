@@ -1,0 +1,11 @@
+.dropdown-button > *,
+.dropdown-button > *:hover,
+.dropdown-button > *:focus {
+  background-color: transparent;
+  color: black;
+  border: none;
+}
+.dropdown-button > :nth-child(2) {
+  border: 0.1px solid gray;
+  background-color: white;
+}

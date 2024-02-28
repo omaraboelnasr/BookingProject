@@ -1,0 +1,6 @@
+.cityCard{
+    cursor: pointer;
+}
+.cityCard:hover{
+    border: 1px solid #febb02;
+}
