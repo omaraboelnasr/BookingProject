@@ -44,7 +44,7 @@ export const SearchFlights = () => {
   };
   return (
     <div className="container">
-      <div className="w-100 row ">
+      <div className="w-100 row">
         <div className="col-12">
           <div className="row gx-2">
             <div className="col-3">
@@ -77,7 +77,7 @@ export const SearchFlights = () => {
                           Adults
                           <span className="text-black-50 small">18-64</span>
                         </span>
-                        <div className="d-flex align-items-center gap-2 w-50">
+                        <div className="d-flex align-items-center gap-2">
                           <button
                             disabled={travelers.adults <= 1}
                             className="btn border bg-white"
@@ -94,12 +94,12 @@ export const SearchFlights = () => {
                           </button>
                         </div>
                       </div>
-                      <div className="w-100 d-flex justify-content-between align-items-center">
+                      <div className="d-flex justify-content-between align-items-center">
                         <span className="d-flex flex-column w-50">
                           Students
-                          <span className="text-black-50 small">over 18</span>
+                          <span className="text-black-50 small ">over 18</span>
                         </span>
-                        <div className="w-50 d-flex align-items-center gap-2">
+                        <div className="d-flex align-items-center gap-2">
                           <button
                             disabled={travelers.students <= 0}
                             className="btn border bg-white"
