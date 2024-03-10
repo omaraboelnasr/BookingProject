@@ -1,4 +1,3 @@
-import Container from 'react-bootstrap/Container';
 import "../../styles/stayesHeader.css";
 import { DateRange } from "react-date-range";
 import { useState } from "react";
@@ -8,7 +7,6 @@ import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { IoBedOutline , IoPersonOutline } from "react-icons/io5";
 import { MdOutlineCalendarMonth } from "react-icons/md";
-import { Col, Row } from 'react-bootstrap';
 
 const SearchForm = () => {
     const [destination, setDestination] = useState("");
@@ -43,9 +41,9 @@ const SearchForm = () => {
     };
 
     return (
-            <Container style={{ maxWidth: '1000px' }} className='headerBody'>
-            <Row style={{backgroundColor:"white"}} className='justify-between headerSearch'>
-            <Col lg="3" className='flex self-center'>
+            <div className=' container left-[5%] absolute top-2 right-[5%]'>
+            <div className=' justify-between flex flex-row items-center border-5 bg-white flex-wrap border-yellow-500 rounded-md max-w-7xl'>
+            <div className='flex self-center'>
             <IoBedOutline className="headerIcon" />
             <input
                 type="text"
@@ -53,8 +51,8 @@ const SearchForm = () => {
                 className="headerSearchInput"
                 onChange={(e) => setDestination(e.target.value)}
             />
-            </Col>
-            <Col lg="3" className='flex self-center'>
+            </div>
+            <div className='flex self-center'>
             <MdOutlineCalendarMonth className="headerIcon" />
                 <span
                 onClick={() => setOpenDate(!openDate)}
@@ -73,8 +71,8 @@ const SearchForm = () => {
                 minDate={new Date()}
                 />
             )}
-            </Col>
-            <Col lg="3" className='flex self-center'>
+            </div>
+            <div className='flex self-center'>
             <IoPersonOutline className="headerIcon" />
             <span
             onClick={() => setOpenOptions(!openOptions)}
@@ -147,15 +145,15 @@ const SearchForm = () => {
                 </div>
             </div>
             )}
-            </Col>
-            <Col lg="1">
+            </div>
+            <div>
             <button className="headerBtn" onClick={handleSearch}>
             Search
             </button>
-            </Col>
+            </div>
                 
-            </Row>
-        </Container>
+            </div>
+        </div>
         
     );
 }

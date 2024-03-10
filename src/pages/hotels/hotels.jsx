@@ -4,12 +4,13 @@ import { NavLink } from "react-router-dom";
 
 const Hotels = () => {
     return <>
-    <div className ="pb-5 bg-blue-900">
+<div className=" relative">
+<div className =" bg-blue-900 pt-10 ">
     <SearchForm/>
     </div>
     <div className="flex flex-col justify-around pt-20 max-w-[890px] mx-auto">
-    <div className="mt-4   w-[864px] p-2 mb-5">
-        <div className="flex border rounded-md p-[15px]">
+    <div className="mt-4  p-2 mb-5">
+        <div className="flex border rounded-md p-[15px] flex-wrap">
             <div  className="self-center ml-0 mr-10">
             <img src="../../../public/images/hotel1.jpeg" alt="" />
             </div>
@@ -49,6 +50,7 @@ const Hotels = () => {
         </div>
     </div>
     </div>
+</div>
     </>
 }
 
