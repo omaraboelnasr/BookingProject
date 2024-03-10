@@ -41,7 +41,7 @@ const SearchForm = () => {
     };
 
     return (
-            <div className=' container left-[5%] absolute top-2 right-[5%]'>
+            <div className=' container'>
             <div className=' justify-between flex flex-row items-center border-5 bg-white flex-wrap border-yellow-500 rounded-md max-w-7xl'>
             <div className='flex self-center'>
             <IoBedOutline className="headerIcon" />
