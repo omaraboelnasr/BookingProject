@@ -15,6 +15,8 @@ import Register from "./pages/Register/Register";
 import SignIn from "./pages/SignIn/SignIn";
 import { Provider } from "react-redux";
 import store from './Store/store';
+import HomeEdit from "./pages/HomeEdit";
+
 
 const routes = createBrowserRouter([
 	{
@@ -34,6 +36,7 @@ const routes = createBrowserRouter([
 			},
 			{ path: "/register", element: <Register /> },
 			{ path: "/login", element: <SignIn /> },
+			{path:"/HomeEdit",element:<HomeEdit/>},
 			{ path: "*", element: <NotFound /> },
 		],
 	},

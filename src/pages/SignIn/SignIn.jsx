@@ -42,9 +42,7 @@ const SignIn = () => {
 					setError("please recheck your password and email");
 					console.log(error);
 				});
-			// mostafa get api from backend
-			//هنا هتعمل call your login API endpoint (data.email & data.password)
-			// Handle success - redirect to home page
+		
 		} catch (error) {
 			console.log("here");
 			setError(error);
@@ -52,10 +50,10 @@ const SignIn = () => {
 		}
 	};
 	return (
-		<Container className=" pb-5" style={{ maxWidth: "890px" }}>
+		<Container className="pb-5 " style={{ maxWidth: "890px" }}>
 			<div>
 				<div>
-					<h1 className=" mt-4 text-2xl	font-bold">
+					<h1 className="mt-4 text-2xl font-bold ">
 						Sign in or create an account
 					</h1>
 					<div className=" mt-9">
@@ -63,7 +61,7 @@ const SignIn = () => {
 							<form action="" onSubmit={handleSubmit(onSubmit)}>
 								<label
 									htmlFor="email"
-									className=" font-semibold"
+									className="font-semibold "
 								>
 									Email address
 								</label>
@@ -76,8 +74,7 @@ const SignIn = () => {
 										pattern:
                     /^[a-zA-Z]{3,22}\d*(@)(gmail|yahoo|outlook|hotmail)(.com)$/,
 									})}
-									className=" w-full px-3 border border-slate-400 rounded-sm shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2
-                  text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600"
+									className="w-full px-3 py-2 pl-2 text-gray-900 bg-transparent border rounded-sm shadow-sm  border-slate-400 placeholder-slate-400 sm:text-sm sm:leading-6 focus:outline-none focus:ring-2 focus:ring-blue-600"
 									placeholder="Enter your email address"
 								/>
 								{errors.email && (
@@ -85,7 +82,7 @@ const SignIn = () => {
 								)}
 								<label
 									htmlFor="password"
-									className=" font-semibold"
+									className="font-semibold "
 								>
 									Password
 								</label>
@@ -121,7 +118,7 @@ const SignIn = () => {
 
 								<button
 									type="submit"
-									className="flex w-full justify-center rounded-sm bg-blue-600 py-3 text-lg my-5 font-semibold leading-6 text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-blue-800"
+									className="flex justify-center w-full py-3 my-5 text-lg font-semibold leading-6 text-white bg-blue-600 rounded-sm shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-blue-800"
 									// onClick={() => navigate("/")}
 								>
 									Sign in
@@ -129,26 +126,26 @@ const SignIn = () => {
 							</form>
 						</div>
 						<div className="flex">
-							<hr className="border-b-solid border-1 border-gray-400 flex-1 mr-2 mt-3" />
+							<hr className="flex-1 mt-3 mr-2 border-gray-400 border-b-solid border-1" />
 							<p className="whitespace-nowrap">
 								or use one of these options
 							</p>
-							<hr className="border-b-solid border-1 border-gray-400 flex-1 ml-2 mt-3" />
+							<hr className="flex-1 mt-3 ml-2 border-gray-400 border-b-solid border-1" />
 						</div>
 						<div className="flex justify-around my-6">
 							<a href="">
-								<div className=" w-20 h-20 m-4 items-center flex justify-center border border-slate-200 hover:outline-none  hover:ring-1 hover:ring-blue-500">
-									<AiFillFacebook className=" w-12 h-12 fill-blue-700" />
+								<div className="flex items-center justify-center w-20 h-20 m-4 border  border-slate-200 hover:outline-none hover:ring-1 hover:ring-blue-500">
+									<AiFillFacebook className="w-12 h-12  fill-blue-700" />
 								</div>
 							</a>
 							<a href="">
-								<div className=" w-20 h-20 m-4 items-center flex justify-center border border-slate-200 hover:outline-none  hover:ring-1 hover:ring-blue-500">
-									<FcGoogle className=" w-12 h-12 " />
+								<div className="flex items-center justify-center w-20 h-20 m-4 border  border-slate-200 hover:outline-none hover:ring-1 hover:ring-blue-500">
+									<FcGoogle className="w-12 h-12 " />
 								</div>
 							</a>
 							<a href="">
-								<div className=" w-20 h-20 m-4 items-center flex justify-center border border-slate-200 hover:outline-none  hover:ring-1 hover:ring-blue-500">
-									<BiLogoApple className=" w-12 h-12" />
+								<div className="flex items-center justify-center w-20 h-20 m-4 border  border-slate-200 hover:outline-none hover:ring-1 hover:ring-blue-500">
+									<BiLogoApple className="w-12 h-12 " />
 								</div>
 							</a>
 						</div>
