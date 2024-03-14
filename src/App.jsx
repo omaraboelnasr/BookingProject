@@ -13,6 +13,8 @@ import Flights from "./pages/Flights";
 
 import Register from "./pages/Register/Register";
 import SignIn from "./pages/SignIn/SignIn";
+import { Provider } from "react-redux";
+import store from './Store/store';
 
 const routes = createBrowserRouter([
 	{
@@ -40,7 +42,9 @@ const routes = createBrowserRouter([
 function App() {
 	return (
 		<>
-			<RouterProvider router={routes} />
+		<Provider store={store}>
+		<RouterProvider router={routes} />
+		</Provider>
 		</>
 	);
 }
