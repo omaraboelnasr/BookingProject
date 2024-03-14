@@ -8,8 +8,10 @@ const StayesHeader = () => {
             <Container style={{ maxWidth: '1100px' }}>
                 <h1 style={{ fontWeight: 'bold' , fontSize:'50px', color:'white'}}>Find your next stay</h1>
                 <h5 style={{ fontSize:'25px', color:'white'}}>Search low prices on hotels, homes and much more...</h5>
-            </Container>            
+            </Container>    
+            <div className='mt-5'>
             <SearchForm/>
+            </div>        
         </Container>
     </>
 }
