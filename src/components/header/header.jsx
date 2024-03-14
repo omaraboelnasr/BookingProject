@@ -6,8 +6,13 @@ import { NavLink } from "react-router-dom";
 
 const Header = () => {
 	const [token, setToken] = useState(localStorage.getItem("token"));
+	const [userName] = useState(localStorage.getItem("user"));
+	const [email] = useState(localStorage.getItem("email"));
 	const logOut = () => {
 		localStorage.removeItem("token");
+		localStorage.removeItem("email");
+		localStorage.removeItem("user");
+
 		setToken(null);
 		window.location.reload();
 	};
@@ -43,7 +48,7 @@ const Header = () => {
 										alt="Bonnie image"
 									/>
 									<p className="my-0 text-xl font-medium text-gray-100 dark:text-white">
-										Bonnie Green
+										{userName ? `${userName}` : `${email}`}
 									</p>
 								</div>
 								<div className="flex mt-4 md:mt-6">
