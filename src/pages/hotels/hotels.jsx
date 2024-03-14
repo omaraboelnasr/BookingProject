@@ -6,14 +6,12 @@ import { useEffect } from "react";
 import { hotelsAction } from './../../Store/slices/hotels';
 
 const Hotels = () => {
-
     const hotels = useSelector((state)=>state.hotels.hotels)
     console.log(hotels);
     const dispatch = useDispatch()
     useEffect(()=>{
         dispatch(hotelsAction())
     },[])
-
     return <>
 <div className=" relative">
 <div className =" bg-blue-900 pt-10 ">
@@ -53,8 +51,7 @@ const Hotels = () => {
                         </div>
                         <div >
                     <button className=" bg-blue-600 pt-2 pb-1 rounded-lg mt-2"><NavLink to={"/hotels/rooms"} className="text-white p-3 text-decoration-none" >{`${"See availability >"}`}</NavLink></button>
-                        </div>
-                    
+                        </div>                 
                 </div>
             </div>
         </div>
