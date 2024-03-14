@@ -27,8 +27,14 @@ const SignIn = () => {
 					password: data.password,
 				})
 				.then((response) => {
+					const email = response.data.email;
+					const user = response.data.userName;
 					const token = response.data.token;
+					localStorage.setItem("email", email);
 					localStorage.setItem("token", token);
+					if (user) {
+						localStorage.setItem("user", user);
+					}
 					navigate("/");
 					window.location.reload();
 				})
@@ -40,6 +46,7 @@ const SignIn = () => {
 			//هنا هتعمل call your login API endpoint (data.email & data.password)
 			// Handle success - redirect to home page
 		} catch (error) {
+			console.log("here");
 			setError(error);
 			console.log(error);
 		}
