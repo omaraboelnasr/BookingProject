@@ -74,17 +74,15 @@ const SignIn = () => {
 									{...register("email", {
 										required: true,
 										pattern:
-											/^[a-zA-Z]{3,15}(@)(gmail|yahoo)(.com)$/,
+                    /^[a-zA-Z]{3,22}\d*(@)(gmail|yahoo|outlook|hotmail)(.com)$/,
 									})}
 									className=" w-full px-3 border border-slate-400 rounded-sm shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2
                   text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600"
 									placeholder="Enter your email address"
 								/>
-
 								{errors.email && (
 									<p className="text-danger">Invalid Email</p>
 								)}
-
 								<label
 									htmlFor="password"
 									className=" font-semibold"
