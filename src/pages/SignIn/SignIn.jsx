@@ -27,14 +27,11 @@ const SignIn = () => {
 					password: data.password,
 				})
 				.then((response) => {
-					const email = response.data.email;
-					const user = response.data.userName;
-					const token = response.data.token;
+					const {email , userName , token , userId} = response.data
 					localStorage.setItem("email", email);
 					localStorage.setItem("token", token);
-					if (user) {
-						localStorage.setItem("user", user);
-					}
+					localStorage.setItem("userName", userName);
+					localStorage.setItem("userId", userId);
 					navigate("/");
 					window.location.reload();
 				})

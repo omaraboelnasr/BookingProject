@@ -8,13 +8,16 @@ import { useNavigate } from "react-router-dom/dist/umd/react-router-dom.developm
 
 const Header = () => {
     const [token, setToken] = useState(localStorage.getItem("token"));
-    const [userName, setUserName] = useState(localStorage.getItem("user") || '');
+    const [userName, setUserName] = useState(localStorage.getItem("userName") || '');
     const [email, setEmail] = useState(localStorage.getItem("email") || '');
+    const [userId, setuserId] = useState(localStorage.getItem("userId") || '');
+
 	const navigate = useNavigate();
     const logOut = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("email");
-        localStorage.removeItem("user");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userId");
 
         setToken(null);
         setUserName('');
@@ -22,7 +25,7 @@ const Header = () => {
         window.location.reload();
     };
 	const manageAccount=() =>{
-		navigate("/HomeEdit")
+		navigate("/profile")
 	}
 
     useEffect(() => {
@@ -61,7 +64,7 @@ const Header = () => {
                                     alt="User image"
                                 />
                                 <span className="my-0 text-xl font-medium text-gray-100 dark:text-white">
-                                    {userName || email}
+                                    {userName}
                                 </span>
                             </Dropdown.Toggle>
 

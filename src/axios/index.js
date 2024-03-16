@@ -6,6 +6,7 @@ const axiosInstance = axios.create({
     "Content-Type": "application/json",
   }
 });
+
 export const registerUser = async (userData) => {
   try {
     const response = await axiosInstance.post('/register', userData);
@@ -24,9 +25,14 @@ export const loginUser = async (userData) => {
   }
 };
 
-export const getUserData = async (userId) => {
+export const getUserData = async () => {
+  const token = localStorage.getItem('token')
   try {
-    const response = await axiosInstance.get(`/users/${userId}`);
+    const response = await axiosInstance.get(`/profile/`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
     return response.data;
   } catch (error) {
     throw error;
@@ -35,7 +41,12 @@ export const getUserData = async (userId) => {
 
 export const updateUserData = async (userId, updatedData) => {
   try {
-    const response = await axiosInstance.patch(`/users/${userId}`, updatedData);
+    const token = localStorage.getItem('token')
+    const response = await axiosInstance.patch(`/${userId}`, updatedData , {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
     return response.data;
   } catch (error) {
     throw error;
@@ -44,7 +55,7 @@ export const updateUserData = async (userId, updatedData) => {
 
 export const deleteUserData = async (userId) => {
   try {
-    const response = await axiosInstance.delete(`/users/${userId}`);
+    const response = await axiosInstance.delete(`/${userId}`);
     return response.data;
   } catch (error) {
     throw error;

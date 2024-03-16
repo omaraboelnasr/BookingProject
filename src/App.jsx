@@ -15,7 +15,7 @@ import Register from "./pages/Register/Register";
 import SignIn from "./pages/SignIn/SignIn";
 import { Provider } from "react-redux";
 import store from './Store/store';
-import HomeEdit from "./pages/HomeEdit";
+import UserProfile from "./pages/userProfile";
 
 
 
@@ -37,7 +37,7 @@ const routes = createBrowserRouter([
 			},
 			{ path: "/register", element: <Register /> },
 			{ path: "/login", element: <SignIn /> },
-			{path:"/HomeEdit",element:<HomeEdit/>},
+			{path:"/profile",element:<UserProfile/>},
 			{ path: "*", element: <NotFound /> },
 		],
 	},

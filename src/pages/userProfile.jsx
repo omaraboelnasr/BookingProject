@@ -3,44 +3,53 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { registerUser, loginUser, getUserData, updateUserData, deleteUserData } from '../axios/index';
 
 
-const HomeEdit = ({ userId }) => {
+const UserProfile = () => {
 //backend 
  const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+	const [showInputs, setShowInputs] = useState(false);
+	const [showNameInputs, setShowNameInputs] = useState(false);
+	const [showEmailInputs, setShowEmailInputs] = useState(false);
+
+	const [showDOBInputs, setShowDOBInputs] = useState(false);
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [email, setEmail] = useState("");
+	const [inputPasswordValue, setInputPasswordValue] = useState("");
+	
+	const [newFirstName, setnewFirstName] = useState("");
+	const [newLastName, setNewLastName] = useState("");
+	const [newEmail, setNewEmail] = useState("");
+
+	const [birthDate, setBirthDate] = useState("");
+	const [savedPasswordValue, setSavedPasswordValue] = useState("");
+
+	const [day, setDay] = useState("");
+	const [month, setMonth] = useState("");
+	const [year, setYear] = useState("");
+
+	const userId = localStorage.getItem('userId')
+	const fetchUserData = async () => {
+		try {
+			const userData = await getUserData();
+			setUser(userData);
+			userData.firstName ? setFirstName(userData.firstName) : setFirstName("")
+			userData.lastName ? setLastName(userData.lastName) : setLastName("")
+			userData.dob ?setBirthDate(userData.dob) : setBirthDate("")
+			userData.email ?setEmail(userData.email) : setEmail("")
+		} catch (error) {
+			setError(error);
+		} finally {
+			setLoading(false);
+		}
+	};
+	
     useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const userData = await getUserData(userId);
-                setUser(userData);
-            } catch (error) {
-                setError(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchUserData();
-    }, [userId]);
+    },[]);
 
-    const handleRegisterUser = useCallback(async (userData) => {
-        try {
-            const newUser = await registerUser(userData);
-            setUser(newUser);
-        } catch (error) {
-            setError(error);
-        }
-    }, []);
-
-    const handleLoginUser = useCallback(async (userData) => {
-        try {
-            const loggedInUser = await loginUser(userData);
-            setUser(loggedInUser);
-        } catch (error) {
-            setError(error);
-        }
-    }, []);
 
     const handleUpdateUserData = useCallback(async (updatedData) => {
         try {
@@ -61,63 +70,37 @@ const HomeEdit = ({ userId }) => {
     }, [userId]);
 
 
-
-	const [showInputs, setShowInputs] = useState(false);
-	const [showNameInputs, setShowNameInputs] = useState(false);
-	const [showEmailInputs, setShowEmailInputs] = useState(false);
-
-	const [showDOBInputs, setShowDOBInputs] = useState(false);
-	const [input1Value, setInput1Value] = useState("");
-	const [input2Value, setInput2Value] = useState("");
-	const [input3Value, setInput3Value] = useState("");
-	const [inputPasswordValue, setInputPasswordValue] = useState("");
-	
-	const [savedValue1, setSavedValue1] = useState("");
-	const [savedValue2, setSavedValue2] = useState("");
-	const [savedValue3, setSavedValue3] = useState("");
-
-	const [savedValue5, setSavedValue5] = useState("");
-	const [savedPasswordValue, setSavedPasswordValue] = useState("");
-
-
-    
-
-	const [day, setDay] = useState("");
-	const [month, setMonth] = useState("");
-	const [year, setYear] = useState("");
-
-
 	const handleEditClick = (field) => {
 		switch (field) {
 			case "name":
 				setShowNameInputs(true);
-				setInput1Value(savedValue1);
-				setInput2Value(savedValue2);
+				setFirstName(newFirstName);
+				setLastName(newLastName);
 				break;
 			case "email":
 				setShowEmailInputs(true);
-				setInput3Value(savedValue3);
+				setEmail(newEmail);
 				break;
 		
 			case "dob":
 				setShowDOBInputs(true);
-				setSavedValue5(savedValue5);
+				setBirthDate(birthDate);
 				break;
 			default:
 				break;
 		}
 	};
 
-	const handleInputChange1 = (e) => {
-		setInput1Value(e.target.value);
+	const handleFirstNameInput = (e) => {
+		setFirstName(e.target.value);
 	};
 
-	const handleInputChange2 = (e) => {
-		setInput2Value(e.target.value);
+	const handleLastNameInput = (e) => {
+		setLastName(e.target.value);
 	};
 
-	const handleInputChange3 = (e) => {
-		setInput3Value(e.target.value);
+	const handleEmailInput = (e) => {
+		setEmail(e.target.value);
 	};
 
 
@@ -130,21 +113,21 @@ const HomeEdit = ({ userId }) => {
 		switch (field) {
 			case "name":
 				setShowNameInputs(!showNameInputs);
-				setSavedValue1(input1Value);
-				setSavedValue2(input2Value);
-				await handleUpdateUserData({ firstName: input1Value, lastName: input2Value });
+				setnewFirstName(firstName);
+				setNewLastName(lastName);
+				await handleUpdateUserData({ firstName: firstName, lastName: lastName });
 				break;
 			case "email":
 				setShowEmailInputs(!showEmailInputs);
-				setSavedValue3(input3Value);
-				await handleUpdateUserData({ email: input3Value });
+				setNewEmail(email);
+				await handleUpdateUserData({ email: email });
 				break;
 			case "password":
 				setSavedPasswordValue(inputPasswordValue);
 				break;
 			case "dob":
 				setShowDOBInputs(!showDOBInputs);
-				setSavedValue5(`${day}/${month}/${year}`);
+				setBirthDate(`${day}/${month}/${year}`);
 				await handleUpdateUserData({ dob: `${day}/${month}/${year}` });
 				break;
 			default:
@@ -156,14 +139,14 @@ const HomeEdit = ({ userId }) => {
 	const handleDeleteClick = async (field) => {
 		switch (field) {
 			case "name":
-				setInput1Value("");
-				setInput2Value("");
-				setSavedValue1("");
-				setSavedValue2("");
+				setFirstName("");
+				setLastName("");
+				setnewFirstName("");
+				setNewLastName("");
 				break;
 			case "email":
-				setInput3Value("");
-				setSavedValue3("");
+				setEmail("");
+				setNewEmail("");
 				break;
 			case "password":
 				setInputPasswordValue("");
@@ -173,7 +156,7 @@ const HomeEdit = ({ userId }) => {
 				setDay("");
 				setMonth("");
 				setYear("");
-				setSavedValue5("");
+				setBirthDate("");
 				break;
 			default:
 				break;
@@ -213,8 +196,8 @@ const HomeEdit = ({ userId }) => {
 									<input
 										type="text"
 										className="inline ml-2 border border-blue-600 rounded h-9"
-										value={input1Value}
-										onChange={handleInputChange1}
+										value={firstName}
+										onChange={handleFirstNameInput}
 									/>
 
 									<label
@@ -226,8 +209,8 @@ const HomeEdit = ({ userId }) => {
 									<input
 										type="text"
 										className="inline ml-2 border border-blue-600 rounded h-9"
-										value={input2Value}
-										onChange={handleInputChange2}
+										value={lastName}
+										onChange={handleLastNameInput}
 									/>
 								</td>
 								<td>
@@ -242,8 +225,7 @@ const HomeEdit = ({ userId }) => {
 						) : (
 							<>
 								<td>
-									<p className="inline">{savedValue1}</p>
-									<p className="inline">{savedValue2}</p>
+									<p>{`${firstName} ${lastName}`}</p>
 								</td>
 								<td>
 									<button
@@ -253,7 +235,7 @@ const HomeEdit = ({ userId }) => {
 										Edit
 									</button>
 
-									{savedValue1 && savedValue2 && (
+									{newFirstName && newLastName && (
 										<button
 											className="w-20 bg-blue-500 rounded-md h-9 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-violet-300 ml-80"
 											onClick={() =>
@@ -285,8 +267,8 @@ const HomeEdit = ({ userId }) => {
 									<input
 										type="email"
 										className="inline ml-2 border border-blue-600 rounded h-9 w-72"
-										value={input3Value}
-										onChange={handleInputChange3}
+										value={email}
+										onChange={handleEmailInput}
 									/>
 								</td>
 								<td>
@@ -303,7 +285,7 @@ const HomeEdit = ({ userId }) => {
 						) : (
 							<>
 								<td>
-									<p className="inline">{savedValue3}</p>
+									<p className="inline">{email}</p>
 								</td>
 								<td>
 									<button
@@ -314,7 +296,7 @@ const HomeEdit = ({ userId }) => {
 									>
 										Edit
 									</button>
-									{savedValue3 && (
+									{newEmail && (
 										<button
 											className="w-20 bg-blue-500 rounded-md h-9 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-violet-300 ml-80"
 											onClick={() =>
@@ -382,12 +364,8 @@ const HomeEdit = ({ userId }) => {
         </td>
     </>
 )}
-
-
 </tr>
 <div className="w-full h-1 m-7"></div>
-
-
 					<tr>
 						<td>
 							<p className="inline text-xl">Date of birth</p>
@@ -446,7 +424,7 @@ const HomeEdit = ({ userId }) => {
 						) : (
 							<>
 								<td>
-									<p className="inline">{savedValue5}</p>
+									<p className="inline">{birthDate}</p>
 								</td>
 								<td>
 									<button
@@ -455,7 +433,7 @@ const HomeEdit = ({ userId }) => {
 									>
 										Edit
 									</button>
-									{savedValue5 && (
+									{birthDate && (
 										<button
 											className="w-20 bg-blue-500 rounded-md h-9 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-violet-300 ml-80"
 											onClick={() =>
@@ -475,4 +453,4 @@ const HomeEdit = ({ userId }) => {
 	);
 };
 
-export default HomeEdit;
+export default UserProfile;
