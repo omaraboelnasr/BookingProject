@@ -4,8 +4,8 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import RegFoot from "../../components/regFoot/RegFoot";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Regist } from "../../services/auth";
 import toast, { Toaster } from 'react-hot-toast';
+import { userRegister } from '../../services/user';
 const Register = () => {
   const navigate = useNavigate()
   const {
@@ -25,7 +25,7 @@ const Register = () => {
   const handleRegist =async (user) => {
     if(!errors.email && !errors.password){
       try{
-            await  Regist(user.email,user.password)
+            await  userRegister(user.email,user.password)
             navigate('/login')
       }catch(err){
           toast.error('This email is already exist')

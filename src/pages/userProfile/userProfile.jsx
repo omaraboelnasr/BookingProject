@@ -1,19 +1,18 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { registerUser, loginUser, getUserData, updateUserData, deleteUserData } from '../axios/index';
+import { deleteUserData, getUserData, updateUserData } from '../../services/user';
 
 
 const UserProfile = () => {
-//backend 
- const [user, setUser] = useState(null);
+ 	const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
 	const [showInputs, setShowInputs] = useState(false);
 	const [showNameInputs, setShowNameInputs] = useState(false);
 	const [showEmailInputs, setShowEmailInputs] = useState(false);
-
 	const [showDOBInputs, setShowDOBInputs] = useState(false);
+
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
@@ -31,6 +30,7 @@ const UserProfile = () => {
 	const [year, setYear] = useState("");
 
 	const userId = localStorage.getItem('userId')
+
 	const fetchUserData = async () => {
 		try {
 			const userData = await getUserData();
@@ -102,8 +102,6 @@ const UserProfile = () => {
 	const handleEmailInput = (e) => {
 		setEmail(e.target.value);
 	};
-
-
 
 	const handleInputPasswordChange = (e) => {
 		setInputPasswordValue(e.target.value);
@@ -249,7 +247,6 @@ const UserProfile = () => {
 							</>
 						)}
 					</tr>
-					<div className="w-full h-1 m-7 "></div>
 			
 					<tr>
 						<td>
@@ -310,8 +307,7 @@ const UserProfile = () => {
 							</>
 						)}
 					</tr>
-					<div className="w-full h-1 m-7 "></div>
-                    
+
                     <tr>
     <td>
         <p className="inline text-xl">Password</p>
@@ -364,8 +360,8 @@ const UserProfile = () => {
         </td>
     </>
 )}
-</tr>
-<div className="w-full h-1 m-7"></div>
+					</tr>
+
 					<tr>
 						<td>
 							<p className="inline text-xl">Date of birth</p>
