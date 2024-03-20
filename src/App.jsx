@@ -14,8 +14,10 @@ import Flights from "./pages/Flights";
 import Register from "./pages/Register/Register";
 import SignIn from "./pages/SignIn/SignIn";
 import { Provider } from "react-redux";
-import store from './Store/store';
-import UserProfile from "./pages/userProfile";
+import UserProfile from "./pages/userProfile/userProfile";
+import { AuthenticationProvider } from "./context/authentication";
+import { useState } from "react";
+import Protected from "./components/protected/protected";
 
 
 
@@ -25,30 +27,27 @@ const routes = createBrowserRouter([
 		element: <AppLayOut />,
 		children: [
 			{ index: true, element: <Home /> },
-			{ path: "/hotels", element: <Hotels /> },
+			{ path: "/hotels/:city", element: <Hotels /> },
 			{ path: "/hotels/rooms", element: <Rooms /> },
 			{ path: "/searchflights", element: <FlightsSearch /> },
 			{ path: "/flights", element: <Flights /> },
 			{ path: "/attractions", element: <Attractions /> },
 			{ path: "/attractions/list", element: <List /> },
-			{
-				path: "/attractions/AttractionPage3",
-				element: <AttractionPage3 />,
-			},
+			{ path: "/attractions/AttractionPage3", element: <AttractionPage3 />},
 			{ path: "/register", element: <Register /> },
 			{ path: "/login", element: <SignIn /> },
-			{path:"/profile",element:<UserProfile/>},
+			{path:"/profile",element:<Protected/>},
 			{ path: "*", element: <NotFound /> },
 		],
 	},
 ]);
 
 function App() {
+	const [isAuth,setAuth]=useState(localStorage.getItem('token')?true:false)
 	return (
 		<>
-		<Provider store={store}>
-		<RouterProvider router={routes} />
-		</Provider>
+		<AuthenticationProvider value={{isAuth,setAuth}}><RouterProvider router={routes} /></AuthenticationProvider>
+		
 		</>
 	);
 }

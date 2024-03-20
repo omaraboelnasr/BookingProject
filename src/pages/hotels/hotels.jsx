@@ -1,17 +1,23 @@
 import SearchForm from "../../components/searchForm/searchForm";
 import { TiTick } from "react-icons/ti";
-import { NavLink } from "react-router-dom";
-import {useDispatch, useSelector} from 'react-redux';
-import { useEffect } from "react";
-import { hotelsAction } from './../../Store/slices/hotels';
+import { NavLink, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getHotels } from "../../services/hotels";
 
 const Hotels = () => {
-    const hotels = useSelector((state)=>state.hotels.hotels)
-    console.log(hotels);
-    const dispatch = useDispatch()
-    useEffect(()=>{
-        dispatch(hotelsAction())
-    },[])
+    const [hotels,setHotels]=useState([])
+    const {city} = useParams()
+    const getHotelsByCity =async () => {
+        try{
+        var hotelsData = await getHotels(city)
+        setHotels(hotelsData)
+        }catch(err){
+            console.log(err)
+        }}
+
+        useEffect(()=>{
+            getHotelsByCity()
+        },[])
     return <>
 <div className=" relative">
 <div className =" bg-blue-900 pt-10 ">
