@@ -4,12 +4,15 @@ import { NavLink, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAllHotels} from "../../services/hotels";
 
+
 const Hotels = () => {
     const [hotels,setHotels]=useState([])
     const {city} = useParams()
     const getHotelsByCity =async () => {
         try{
+
         var hotelsData = await getAllHotels(city)
+
         setHotels(hotelsData)
         }catch(err){
             console.log(err)
