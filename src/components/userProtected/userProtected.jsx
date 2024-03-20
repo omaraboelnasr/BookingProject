@@ -1,16 +1,14 @@
 import React, { useContext } from 'react';
 import { authenticationContext } from '../../context/authentication';
 import { Navigate } from 'react-router-dom';
-import UserProfile from '../../pages/userProfile/userProfile';
 
-const Protected = ({children}) => {
+const UserProtected = ({children}) => {
     const {isAuth} =  useContext(authenticationContext)
-    console.log(isAuth)
-    if(isAuth){
+    if(!isAuth){
         return children
     }else{
-        return <Navigate to='/login'/>
+        return <Navigate to='/'/>
     }
 }
 
-export default Protected;
+export default UserProtected;

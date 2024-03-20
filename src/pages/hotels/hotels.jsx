@@ -2,14 +2,17 @@ import SearchForm from "../../components/searchForm/searchForm";
 import { TiTick } from "react-icons/ti";
 import { NavLink, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getHotels } from "../../services/hotels";
+import { getAllHotels} from "../../services/hotels";
+
 
 const Hotels = () => {
     const [hotels,setHotels]=useState([])
     const {city} = useParams()
     const getHotelsByCity =async () => {
         try{
-        var hotelsData = await getHotels(city)
+
+        var hotelsData = await getAllHotels(city)
+
         setHotels(hotelsData)
         }catch(err){
             console.log(err)

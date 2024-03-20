@@ -13,11 +13,12 @@ import Flights from "./pages/Flights";
 
 import Register from "./pages/Register/Register";
 import SignIn from "./pages/SignIn/SignIn";
-import { Provider } from "react-redux";
 import UserProfile from "./pages/userProfile/userProfile";
 import { AuthenticationProvider } from "./context/authentication";
 import { useState } from "react";
 import Protected from "./components/protected/protected";
+import UserProtected from "./components/userProtected/userProtected";
+
 
 
 
@@ -34,9 +35,9 @@ const routes = createBrowserRouter([
 			{ path: "/attractions", element: <Attractions /> },
 			{ path: "/attractions/list", element: <List /> },
 			{ path: "/attractions/AttractionPage3", element: <AttractionPage3 />},
-			{ path: "/register", element: <Register /> },
-			{ path: "/login", element: <SignIn /> },
-			{path:"/profile",element:<Protected/>},
+			{ path: "/register", element:<UserProtected><Register/></UserProtected> },
+			{ path: "/login", element: <UserProtected><SignIn/></UserProtected>},
+			{path:"/profile",element:<Protected><UserProfile/></Protected>},
 			{ path: "*", element: <NotFound /> },
 		],
 	},
@@ -47,9 +48,7 @@ function App() {
 	return (
 		<>
 		<AuthenticationProvider value={{isAuth,setAuth}}><RouterProvider router={routes} /></AuthenticationProvider>
-		
 		</>
 	);
 }
-
 export default App;
