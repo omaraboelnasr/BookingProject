@@ -5,7 +5,6 @@ import UserProfile from '../../pages/userProfile/userProfile';
 
 const Protected = ({children}) => {
     const {isAuth} =  useContext(authenticationContext)
-    console.log(isAuth)
     if(isAuth){
         return children
     }else{

@@ -167,7 +167,8 @@ const UserProfile = () => {
 	const days = Array.from({ length: 31 }, (_, index) => index + 1);
 	const months = Array.from({ length: 12 }, (_, index) => index + 1);
 	const years = Array.from({ length: 80 }, (_, index) => 2022 - index);
-
+	if(loading||!email){return null}
+	
 	return (
 		<div className="container mx-auto ">
 			<h1 className="flex m-4 text-4xl font-bold justify-normal">

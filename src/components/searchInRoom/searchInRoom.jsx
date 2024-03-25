@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import "../../styles/stayesHeader.css";
 import { DateRange } from "react-date-range";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
@@ -10,7 +10,9 @@ import { IoPersonOutline } from "react-icons/io5";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { Col, Row } from 'react-bootstrap';
 
-const SearchInRoom = () => {
+const SearchInRoom = (searchHistory) => {
+    const searchH = searchHistory.searchHistory.state
+    const {destination:city, date:choosenDate, options:choosenOption} = searchH
     const [openDate, setOpenDate] = useState(false);
     const [date, setDate] = useState([
     {
@@ -36,6 +38,18 @@ const SearchInRoom = () => {
     };
     });
     };
+    useEffect(() => {
+        if(choosenDate){
+            setDate(choosenDate)
+        }
+        if(choosenOption){
+            setOptions({
+                adult: choosenOption.adult,
+                children: choosenOption.children,
+                room: choosenOption.room,
+                })
+        }
+    },[choosenDate,choosenOption])
 
     const handleSearch = () => {
     navigate("/hotels", { state: { date, options } });
