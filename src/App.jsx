@@ -18,6 +18,7 @@ import { AuthenticationProvider } from "./context/authentication";
 import { useState } from "react";
 import Protected from "./components/protected/protected";
 import UserProtected from "./components/userProtected/userProtected";
+import BookingCard from "./pages/bookingCard/bookingCard";
 
 
 
@@ -28,8 +29,8 @@ const routes = createBrowserRouter([
 		element: <AppLayOut />,
 		children: [
 			{ index: true, element: <Home /> },
-			{ path: "/hotels/:city", element: <Hotels /> },
-			{ path: "/hotels/rooms", element: <Rooms /> },
+			{ path: "/hotels/", element: <Hotels /> },
+			{ path: "/rooms/:id", element: <Rooms /> },
 			{ path: "/searchflights", element: <FlightsSearch /> },
 			{ path: "/flights", element: <Flights /> },
 			{ path: "/attractions", element: <Attractions /> },
@@ -38,6 +39,7 @@ const routes = createBrowserRouter([
 			{ path: "/register", element:<UserProtected><Register/></UserProtected> },
 			{ path: "/login", element: <UserProtected><SignIn/></UserProtected>},
 			{path:"/profile",element:<Protected><UserProfile/></Protected>},
+			{path:"/booking",element:<Protected><BookingCard/></Protected>},
 			{ path: "*", element: <NotFound /> },
 		],
 	},

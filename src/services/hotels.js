@@ -9,3 +9,11 @@ export const getAllHotels = async (city) => {
     }
   };
   
+  export const getHotel = async (hotelId) => {
+    try {
+      const response = await axiosInstance.get(`/hotels/${hotelId}`);
+      return response.data.data;
+    } catch (error) {
+      throw error;
+    }
+  };

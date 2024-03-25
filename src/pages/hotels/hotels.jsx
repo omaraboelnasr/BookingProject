@@ -1,18 +1,22 @@
 import SearchForm from "../../components/searchForm/searchForm";
 import { TiTick } from "react-icons/ti";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAllHotels} from "../../services/hotels";
 
 
 const Hotels = () => {
     const [hotels,setHotels]=useState([])
-    const {city} = useParams()
+    const navigate = useNavigate()
+
+    const location = useLocation();
+    const { destination:city, date, options } = location.state|| {};
     const getHotelsByCity =async () => {
         try{
-
+            if(!city){
+                navigate('/')
+            }
         var hotelsData = await getAllHotels(city)
-
         setHotels(hotelsData)
         }catch(err){
             console.log(err)
@@ -20,10 +24,15 @@ const Hotels = () => {
 
         useEffect(()=>{
             getHotelsByCity()
-        },[])
+        },[city])
+
+        const handleGetRooms=(hotelId)=>{
+            navigate(`/rooms/${hotelId}`, { state: { destination:city, date, options } });
+        }
+
     return <>
 <div className=" relative">
-<div className =" bg-blue-900 pt-10 ">
+<div className =" bg-blue-900 mb-3">
     <SearchForm/>
     </div>
     {hotels.map((hotel)=>(
@@ -38,7 +47,7 @@ const Hotels = () => {
                     <h4 className=" font-bold text-blue-800">{hotel.hotelName}</h4>
                     <div className="flex">
                     <p className=" text-blue-500 text-decoration-underline mr-2">{hotel.hotelAddress}</p>
-                    <p className="text-muted">11.7 Km from center</p>
+                    <p className="text-muted">{hotel.distanceFromCenter} Km from center</p>
                     </div>
                     <div className=" hidden">{hotel.hotelCity}</div>
                     <div>
@@ -59,7 +68,7 @@ const Hotels = () => {
                         </div>
                         </div>
                         <div >
-                    <button className=" bg-blue-600 pt-2 pb-1 rounded-lg mt-2"><NavLink to={"/hotels/rooms"} className="text-white p-3 text-decoration-none" >{`${"See availability >"}`}</NavLink></button>
+                    <button className=" bg-blue-600 pt-2 pb-1 rounded-lg mt-2" onClick={()=>handleGetRooms(hotel._id)}>{`${"See availability >"}`}</button>
                         </div>                 
                 </div>
             </div>

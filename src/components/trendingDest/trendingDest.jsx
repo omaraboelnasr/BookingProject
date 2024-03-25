@@ -8,7 +8,8 @@ const TrendingDest = () => {
 
     const navigate = useNavigate()
     const handleClick = (city) => {
-    navigate(`/hotels/${city}`)
+
+    navigate(`/hotels/`,{ state: { destination:city} })
     };
     return <>
             <Container className='pt-20' style={{ maxWidth: '1100px'}}>

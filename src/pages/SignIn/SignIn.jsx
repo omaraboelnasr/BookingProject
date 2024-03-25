@@ -18,17 +18,22 @@ const SignIn = () => {
 
 	const navigate = useNavigate();
 	const handleSignIn = async (user)=>{
+		console.log(user)
 		if(!errors.email && !errors.password){
 			try{
 				const response = await userSignin(user.email,user.password)
-				const {email , userName , token , userId} = response
+				const {email , userName , token , userId ,active} = response
 					localStorage.setItem("email", email);
 					localStorage.setItem("token", token);
 					localStorage.setItem("userName", userName);
 					localStorage.setItem("userId", userId);
+					if(!active){
+						return navigate("/register");
+					}
 					navigate("/");
 					setAuth(true)
 			}catch(err){
+				console.log(err)
 				setError("please recheck your password and email");
 			}
 		}else{

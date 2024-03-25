@@ -4,12 +4,15 @@ import { useState } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { IoBedOutline , IoPersonOutline } from "react-icons/io5";
 import { MdOutlineCalendarMonth } from "react-icons/md";
+import { useEffect } from "react";
 
 const SearchForm = () => {
     const [destination, setDestination] = useState("");
+    const location = useLocation();
+    const { destination:city, date:choosenDate, options:choosenOption } = location.state|| {};
     const [openDate, setOpenDate] = useState(false);
     const [date, setDate] = useState([
     {
@@ -25,6 +28,22 @@ const SearchForm = () => {
     room: 1,
     });
 
+    useEffect(() => {
+        if(city){
+            setDestination(city);
+        }
+        if(choosenDate){
+            setDate(choosenDate)
+        }
+        if(choosenOption){
+            setOptions({
+                adult: choosenOption.adult,
+                children: choosenOption.children,
+                room: choosenOption.room,
+                })
+        }
+    },[choosenDate,choosenOption])
+   
     const navigate = useNavigate();
 
     const handleOption = (name, operation) => {
@@ -42,13 +61,14 @@ const SearchForm = () => {
 
     return (
             <div className=' container'>
-            <div className=' justify-between flex flex-row items-center border-5 bg-white flex-wrap border-yellow-500 rounded-md max-w-7xl'>
+            <div className=' justify-between flex flex-row items-center border-5 bg-white flex-wrap border-yellow-500 rounded-md max-w-7xl headerSearch'>
             <div className='flex self-center'>
             <IoBedOutline className="headerIcon" />
             <input
                 type="text"
                 placeholder="Where are you going?"
                 className="headerSearchInput"
+                value={destination}
                 onChange={(e) => setDestination(e.target.value)}
             />
             </div>
