@@ -13,6 +13,16 @@ import Flights from "./pages/Flights";
 
 import Register from "./pages/Register/Register";
 import SignIn from "./pages/SignIn/SignIn";
+import UserProfile from "./pages/userProfile/userProfile";
+import { AuthenticationProvider } from "./context/authentication";
+import { useState } from "react";
+import Protected from "./components/protected/protected";
+import UserProtected from "./components/userProtected/userProtected";
+import BookingCard from "./pages/bookingCard/bookingCard";
+
+
+
+
 
 const routes = createBrowserRouter([
 	{
@@ -20,29 +30,28 @@ const routes = createBrowserRouter([
 		element: <AppLayOut />,
 		children: [
 			{ index: true, element: <Home /> },
-			{ path: "/hotels", element: <Hotels /> },
-			{ path: "/hotels/rooms", element: <Rooms /> },
+			{ path: "/hotels/", element: <Hotels /> },
+			{ path: "/rooms/:id", element: <Rooms /> },
 			{ path: "/searchflights", element: <FlightsSearch /> },
 			{ path: "/flights", element: <Flights /> },
 			{ path: "/attractions", element: <Attractions /> },
 			{ path: "/attractions/list", element: <List /> },
-			{
-				path: "/attractions/AttractionPage3",
-				element: <AttractionPage3 />,
-			},
-			{ path: "/register", element: <Register /> },
-			{ path: "/login", element: <SignIn /> },
+			{ path: "/attractions/AttractionPage3", element: <AttractionPage3 />},
+			{ path: "/register", element:<UserProtected><Register/></UserProtected> },
+			{ path: "/login", element: <UserProtected><SignIn/></UserProtected>},
+			{path:"/profile",element:<Protected><UserProfile/></Protected>},
+			{path:"/booking",element:<Protected><BookingCard/></Protected>},
 			{ path: "*", element: <NotFound /> },
 		],
 	},
 ]);
 
 function App() {
+	const [isAuth,setAuth]=useState(localStorage.getItem('token')?true:false)
 	return (
 		<>
-			<RouterProvider router={routes} />
+		<AuthenticationProvider value={{isAuth,setAuth}}><RouterProvider router={routes} /></AuthenticationProvider>
 		</>
 	);
 }
-
 export default App;
