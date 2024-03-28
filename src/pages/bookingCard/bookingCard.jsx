@@ -1,12 +1,33 @@
 import React from "react";
 import { useLocation } from "react-router";
+import axiosInstance from "../../axios";
 
 const BookingCard = () => {
 	const location = useLocation();
-
+	const { rooms, date } = location.state;
+	console.log(location);
 	const totalPrice = location.state.rooms.reduce((total, room) => {
 		return total + room.quantity * room.room.price;
 	}, 0);
+
+	const submitBooking = () => {
+		const user = localStorage.getItem("userId");
+		const room = rooms.map((room) => room.room._id);
+		const checkIn = date?.[0]?.startDate;
+		const checkOut = date?.[0]?.endDate;
+		const guests = 4;
+		const bookingData = {
+			user,
+			room,
+			guests,
+			checkIn,
+			checkOut,
+			totalPrice,
+		};
+
+		console.log(bookingData);
+		axiosInstance.post("/booking", bookingData);
+	};
 
 	return (
 		<main className="container mt-10">
@@ -15,7 +36,7 @@ const BookingCard = () => {
 					<p className="text-xl font-medium">Booking Summary</p>
 
 					<div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-						{location.state.rooms.map((room) => (
+						{rooms.map((room) => (
 							<div
 								key={room.room._id}
 								className="flex flex-col rounded-lg bg-white sm:flex-row"
@@ -148,7 +169,12 @@ const BookingCard = () => {
 							</p>
 						</div>
 					</div>
-					<button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">
+					<button
+						className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white"
+						onClick={() => {
+							submitBooking();
+						}}
+					>
 						Place Booking
 					</button>
 				</div>
