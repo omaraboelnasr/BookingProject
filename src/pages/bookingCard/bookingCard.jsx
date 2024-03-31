@@ -1,32 +1,102 @@
 import React from "react";
 import { useLocation } from "react-router";
 import axiosInstance from "../../axios";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const BookingCard = () => {
+	const initialOptions = {
+		"client-id":
+			"AVtmFkmVPYI4lI4M7XlEiVk83pkwMRFtHwEjzO1JnJjV_LYKLCMyoshbOpBanmwwVcO3hMDKKqotU-5P",
+		"enable-funding": "paypal",
+		"disable-funding": "paylater,venmo,card",
+		"data-sdk-integration-source": "integrationbuilder_sc",
+	};
+	// const [message, setMessage] = useState("");
 	const location = useLocation();
 	const { rooms, date } = location.state;
-	console.log(location);
 	const totalPrice = location.state.rooms.reduce((total, room) => {
 		return total + room.quantity * room.room.price;
 	}, 0);
 
-	const submitBooking = () => {
-		const user = localStorage.getItem("userId");
-		const room = rooms.map((room) => room.room._id);
-		const checkIn = date?.[0]?.startDate;
-		const checkOut = date?.[0]?.endDate;
-		const guests = 4;
-		const bookingData = {
-			user,
-			room,
-			guests,
-			checkIn,
-			checkOut,
-			totalPrice,
-		};
+	// const submitBooking = () => {
+	// 	const user = localStorage.getItem("userId");
+	// 	const room = rooms.map((room) => room.room._id);
+	// 	const checkIn = date?.[0]?.startDate;
+	// 	const checkOut = date?.[0]?.endDate;
+	// 	const guests = 4;
+	// 	const bookingData = {
+	// 		user,
+	// 		room,
+	// 		guests,
+	// 		checkIn,
+	// 		checkOut,
+	// 		totalPrice,
+	// 	};
+	// 	console.log(user, room, guests, checkIn, checkOut, totalPrice);
+	// 	axiosInstance
+	// 		.post("/booking", bookingData)
+	// 		.then((response) => {
+	// 			// handle successful response
+	// 			console.log("Booking created successfully", response.data);
+	// 			// show success message to user or redirect to a different page
+	// 		})
+	// 		.catch((error) => {
+	// 			// handle error during booking creation
+	// 			console.error("Error creating booking", error.response.data);
+	// 			// show error message to user or redirect to a different page
+	// 		});
+	// };
 
-		console.log(bookingData);
-		axiosInstance.post("/booking", bookingData);
+	const user = localStorage.getItem("userId");
+	const room = rooms.map((room) => room.room._id);
+	const checkIn = date?.[0]?.startDate;
+	const checkOut = date?.[0]?.endDate;
+	const guests = 4;
+	const bookingData = {
+		user,
+		room,
+		guests,
+		checkIn,
+		checkOut,
+		totalPrice,
+	};
+
+	const createOrder = async (data, actions) => {
+		return actions.order.create({
+			intent: "CAPTURE",
+			purchase_units: [
+				{
+					amount: {
+						currency_code: "USD",
+						value: totalPrice,
+					},
+				},
+			],
+		});
+	};
+
+	const onApprove = (data, actions) => {
+		return actions.order.capture().then((orderData) => {
+			const transaction =
+				orderData.purchase_units[0].payments.captures[0];
+
+			console.log("Transaction result: ", orderData);
+
+			axiosInstance
+				.post("/booking", bookingData)
+				.then((response) => {
+					console.log("Booking created successfully", response.data);
+				})
+				.catch((error) => {
+					console.error(
+						"Error creating booking",
+						error.response.data
+					);
+				});
+			setMessage(
+				`Transaction ${transaction.status} with ID: ${transaction.id}`
+			);
+		});
 	};
 
 	return (
@@ -65,12 +135,12 @@ const BookingCard = () => {
 					</div>
 				</div>
 				<div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
-					<p className="text-xl font-medium">Payment Details</p>
+					{/* <p className="text-xl font-medium">Payment Details</p>
 					<p className="text-gray-400">
 						Complete your order by providing your payment details.
-					</p>
+					</p> */}
 					<div>
-						<label
+						{/* <label
 							htmlFor="email"
 							className="mt-4 mb-2 block text-sm font-medium"
 						>
@@ -84,8 +154,8 @@ const BookingCard = () => {
 								className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
 								placeholder="your.email@gmail.com"
 							/>
-						</div>
-						<label
+						</div> */}
+						{/* <label
 							htmlFor="card-holder"
 							className="mt-4 mb-2 block text-sm font-medium"
 						>
@@ -99,8 +169,8 @@ const BookingCard = () => {
 								className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
 								placeholder="Your full name here"
 							/>
-						</div>
-						<label
+						</div> */}
+						{/* <label
 							htmlFor="card-no"
 							className="mt-4 mb-2 block text-sm font-medium"
 						>
@@ -128,8 +198,8 @@ const BookingCard = () => {
 								className="w-1/6 flex-shrink-0 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
 								placeholder="CVC"
 							/>
-						</div>
-						<label
+						</div> */}
+						{/* <label
 							htmlFor="billing-address"
 							className="mt-4 mb-2 block text-sm font-medium"
 						>
@@ -158,7 +228,7 @@ const BookingCard = () => {
 								className="flex-shrink-0 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none sm:w-1/6 focus:z-10 focus:border-blue-500 focus:ring-blue-500"
 								placeholder="ZIP"
 							/>
-						</div>
+						</div> */}
 						{/* Total */}
 						<div className="mt-6 flex items-center justify-between border-t border-b py-2">
 							<p className="text-lg font-medium text-gray-900">
@@ -169,14 +239,24 @@ const BookingCard = () => {
 							</p>
 						</div>
 					</div>
-					<button
+					{/* <button
 						className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white"
 						onClick={() => {
 							submitBooking();
 						}}
 					>
 						Place Booking
-					</button>
+					</button> */}
+					<PayPalScriptProvider options={initialOptions}>
+						<PayPalButtons
+							style={{
+								shape: "pill",
+								layout: "horizontal",
+							}}
+							createOrder={createOrder}
+							onApprove={onApprove}
+						></PayPalButtons>
+					</PayPalScriptProvider>
 				</div>
 			</div>
 		</main>
