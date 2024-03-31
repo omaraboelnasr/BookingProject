@@ -19,10 +19,7 @@ import { useState } from "react";
 import Protected from "./components/protected/protected";
 import UserProtected from "./components/userProtected/userProtected";
 import BookingCard from "./pages/bookingCard/bookingCard";
-
-
-
-
+import { classNames } from "classnames";
 
 const routes = createBrowserRouter([
 	{
@@ -36,21 +33,56 @@ const routes = createBrowserRouter([
 			{ path: "/flights", element: <Flights /> },
 			{ path: "/attractions", element: <Attractions /> },
 			{ path: "/attractions/list", element: <List /> },
-			{ path: "/attractions/AttractionPage3", element: <AttractionPage3 />},
-			{ path: "/register", element:<UserProtected><Register/></UserProtected> },
-			{ path: "/login", element: <UserProtected><SignIn/></UserProtected>},
-			{path:"/profile",element:<Protected><UserProfile/></Protected>},
-			{path:"/booking",element:<Protected><BookingCard/></Protected>},
+			{
+				path: "/attractions/AttractionPage3",
+				element: <AttractionPage3 />,
+			},
+			{
+				path: "/register",
+				element: (
+					<UserProtected>
+						<Register />
+					</UserProtected>
+				),
+			},
+			{
+				path: "/login",
+				element: (
+					<UserProtected>
+						<SignIn />
+					</UserProtected>
+				),
+			},
+			{
+				path: "/profile",
+				element: (
+					<Protected>
+						<UserProfile />
+					</Protected>
+				),
+			},
+			{
+				path: "/booking",
+				element: (
+					<Protected>
+						<BookingCard />
+					</Protected>
+				),
+			},
 			{ path: "*", element: <NotFound /> },
 		],
 	},
 ]);
 
 function App() {
-	const [isAuth,setAuth]=useState(localStorage.getItem('token')?true:false)
+	const [isAuth, setAuth] = useState(
+		localStorage.getItem("token") ? true : false
+	);
 	return (
 		<>
-		<AuthenticationProvider value={{isAuth,setAuth}}><RouterProvider router={routes} /></AuthenticationProvider>
+			<AuthenticationProvider value={{ isAuth, setAuth }}>
+				<RouterProvider router={routes} />
+			</AuthenticationProvider>
 		</>
 	);
 }

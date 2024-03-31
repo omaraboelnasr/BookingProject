@@ -10,8 +10,15 @@ import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import classNames from "classnames";
 import { authenticationContext } from "../../context/authentication";
+import { useTranslation } from "react-i18next";
+import { faLungs } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
+	const { t, i18n } = useTranslation();
+	const lngs = {
+		en: { nativeName: "En" },
+		ar: { nativeName: "Ar" },
+	};
 	const { isAuth, setAuth } = useContext(authenticationContext);
 	const [userName, setUserName] = useState(
 		localStorage.getItem("userName") || ""
@@ -50,6 +57,21 @@ const Header = () => {
 					>
 						Booking.com
 					</Navbar.Brand>
+					<div>
+						{Object.keys(lngs).map((lng) => {
+							return (
+								<button
+									type="submit"
+									className="btn btn-primary"
+									key={lng}
+									onClick={() => i18n.changeLanguage(lng)}
+									disabled={i18n.resolvedLanguage === lng}
+								>
+									{lngs[lng].nativeName}
+								</button>
+							);
+						})}
+					</div>
 					{isAuth ? (
 						<Menu
 							as="div"
@@ -92,7 +114,7 @@ const Header = () => {
 												)}
 												onClick={logOut}
 											>
-												Sign out
+												{t("logout")}
 											</button>
 										</Menu.Item>
 									</div>
@@ -106,7 +128,7 @@ const Header = () => {
 									to="/register"
 									className={"text-decoration-none"}
 								>
-									Register
+									{t("register")}
 								</NavLink>
 							</button>
 							<button className="px-2 py-2 ml-5 text-blue-800 bg-white rounded-sm">
@@ -114,7 +136,7 @@ const Header = () => {
 									to="/login"
 									className={"text-decoration-none"}
 								>
-									Sign in
+									{t("login")}
 								</NavLink>
 							</button>
 						</Nav>
