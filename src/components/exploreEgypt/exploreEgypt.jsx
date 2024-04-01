@@ -1,8 +1,11 @@
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom/dist/umd/react-router-dom.development";
+import { useTranslation } from "react-i18next";
 
 const ExploreEgypt = () => {
+	const { t, i18n } = useTranslation();
+
 	const navigate = useNavigate();
 	const handleClick = (city) => {
 		navigate(`/hotels/`, { state: { destination: city } });
@@ -12,10 +15,10 @@ const ExploreEgypt = () => {
 			<Container className="pt-10 " style={{ maxWidth: "1100px" }}>
 				<div>
 					<h3 style={{ fontWeight: "bold", fontSize: "25px" }}>
-						Explore Egypt
+						{t('Explore')}
 					</h3>
 					<h5 style={{ fontSize: "17px", color: "#a2a2a2" }}>
-						These popular destinations have a lot to offer
+						{t('popular destinations')}
 					</h5>
 				</div>
 				<Container className="flex space-x-4 pt-3">
@@ -30,9 +33,9 @@ const ExploreEgypt = () => {
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
-							<Card.Title>Alexandria</Card.Title>
+							<Card.Title>{t('Alexandria')} </Card.Title>
 							<Card.Text className="text-muted">
-								70 properties
+								70{t('properties')}
 							</Card.Text>
 						</div>
 					</Card>
@@ -48,9 +51,9 @@ const ExploreEgypt = () => {
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
-							<Card.Title>Hurghada</Card.Title>
+							<Card.Title>{t('Hurghada')}</Card.Title>
 							<Card.Text className="text-muted">
-								150 properties
+								150 {t('properties')}
 							</Card.Text>
 						</div>
 					</Card>
@@ -66,9 +69,9 @@ const ExploreEgypt = () => {
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
-							<Card.Title>Cairo</Card.Title>
+							<Card.Title>{t('Cairo')}</Card.Title>
 							<Card.Text className="text-muted">
-								200 properties
+								200 {t('properties')}
 							</Card.Text>
 						</div>
 					</Card>
@@ -84,9 +87,9 @@ const ExploreEgypt = () => {
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
-							<Card.Title>Sharm El Sheikh</Card.Title>
+							<Card.Title>{t('Sharm El Sheikh')}</Card.Title>
 							<Card.Text className="text-muted">
-								180 properties
+								180 {t('properties')}
 							</Card.Text>
 						</div>
 					</Card>
@@ -102,9 +105,9 @@ const ExploreEgypt = () => {
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
-							<Card.Title>Dahab</Card.Title>
+							<Card.Title>{t('Dahab')}</Card.Title>
 							<Card.Text className="text-muted">
-								50 properties
+								50 {t('properties')}
 							</Card.Text>
 						</div>
 					</Card>

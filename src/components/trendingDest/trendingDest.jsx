@@ -3,8 +3,12 @@ import Card from "react-bootstrap/Card";
 import "../../styles/textStyle.css";
 import "../../styles/cardStyle.css";
 import { useNavigate } from "react-router-dom/dist/umd/react-router-dom.development";
+import { useTranslation } from "react-i18next";
+
 
 const TrendingDest = () => {
+	const { t, i18n } = useTranslation();
+
 	const navigate = useNavigate();
 	const handleClick = (city) => {
 		navigate(`/hotels/`, { state: { destination: city } });
@@ -14,10 +18,10 @@ const TrendingDest = () => {
 			<Container className="pt-20" style={{ maxWidth: "1100px" }}>
 				<div>
 					<h3 style={{ fontWeight: "bold", fontSize: "25px" }}>
-						Trending destinations
+						{t('trending')}
 					</h3>
 					<h5 style={{ fontSize: "17px", color: "#a2a2a2" }}>
-						Most popular choices for travellers from Egypt
+						{t('travellers')}
 					</h5>
 				</div>
 				<Container className="pt-3 flex space-x-4">
@@ -32,7 +36,7 @@ const TrendingDest = () => {
 								style={{ fontWeight: "bold", fontSize: "25px" }}
 								className="textShadow"
 							>
-								Cairo
+								{t("Cairo")}
 							</Card.Title>
 						</Card.ImgOverlay>
 					</Card>
@@ -47,7 +51,7 @@ const TrendingDest = () => {
 								style={{ fontWeight: "bold", fontSize: "25px" }}
 								className="textShadow"
 							>
-								Hurghada
+								{t("Hurghada")}
 							</Card.Title>
 						</Card.ImgOverlay>
 					</Card>
@@ -68,7 +72,7 @@ const TrendingDest = () => {
 								style={{ fontWeight: "bold", fontSize: "25px" }}
 								className="textShadow"
 							>
-								Alexandria
+								{t('Alexandria')}
 							</Card.Title>
 						</Card.ImgOverlay>
 					</Card>
@@ -87,7 +91,7 @@ const TrendingDest = () => {
 								style={{ fontWeight: "bold", fontSize: "25px" }}
 								className="textShadow"
 							>
-								Sharm El Sheikh
+								{t('Sharm El Sheikh')}
 							</Card.Title>
 						</Card.ImgOverlay>
 					</Card>
@@ -106,7 +110,7 @@ const TrendingDest = () => {
 								style={{ fontWeight: "bold", fontSize: "25px" }}
 								className="textShadow"
 							>
-								Dahab
+								{t('Dahab')}
 							</Card.Title>
 						</Card.ImgOverlay>
 					</Card>
