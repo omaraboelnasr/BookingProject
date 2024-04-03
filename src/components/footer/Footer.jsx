@@ -2,13 +2,14 @@ import { useTranslation } from "react-i18next";
 import "../footer/footer.css";
 
 const Footer = () => {
-	const { t } = useTranslation();
+  	const { t } = useTranslation();
 	const reservedRights = t("reservedrights").split("\n");
-	return (
+
+return (
 		<>
 			<footer
-				className="page-footer font-small  pt-4 mt-7 bg-blue-900"
-				style={{ color: "white", width: "100%", height: "300px" }}
+				className="md:page-footer font-small  pt-4 mt-7 bg-blue-900"
+				style={{ color: "white", width: "100%", height: "100%" }}
 			>
 				<div className="container-fluid text-center text-md-left">
 					<div className="row">
@@ -40,6 +41,7 @@ const Footer = () => {
 						<div className="col-md-3 mt-md-0 mt-3">
 							<h5 className="text-uppercase">{t("discover")}</h5>
 
+
 							<ul className="list-unstyled">
 								<li>
 									<a href="#!" className="alinks">
@@ -64,7 +66,8 @@ const Footer = () => {
 							</ul>
 						</div>
 
-						<hr className="clearfix w-100 d-md-none pb-0" />
+            {/* <hr className="clearfix w-100 d-md-none pb-0" /> */}
+
 
 						<div className="col-md-3 mb-md-0 mb-3">
 							<h5 className="text-uppercase">{t("TAS")}</h5>
