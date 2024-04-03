@@ -1,129 +1,136 @@
+import { useTranslation } from "react-i18next";
 import "../footer/footer.css";
 
 const Footer = () => {
-  return (
-    <>
-      <footer
-        className="md:page-footer font-small  pt-4 mt-7 bg-blue-900"
-        style={{ color: "white", width: "100%", height: "100%" }}
-      >
-        <div className="container-fluid text-center text-md-left">
-          <div className="row">
-            <div className="col-md-3 mt-md-0 mt-3">
-              <h5 className="text-uppercase">Support</h5>
-              <ul className="list-unstyled">
-                <li>
-                  <a href="#!" className="alinks">
-                    Coronavirus (COVID-19) FAQs
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" className="alinks">
-                    Manage your trips
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" className="alinks">
-                    Attractions help centre
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" className="alinks">
-                    Safety resource centre
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="col-md-3 mt-md-0 mt-3">
-              <h5 className="text-uppercase">Discover</h5>
+  	const { t } = useTranslation();
+	const reservedRights = t("reservedrights").split("\n");
 
-              <ul className="list-unstyled">
-                <li>
-                  <a href="#!" className="alinks">
-                    Genius loyalty programme
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" className="alinks">
-                    Seasonal and holiday deals
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" className="alinks">
-                    Travel articles
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" className="alinks">
-                    Booking.com for Business
-                  </a>
-                </li>
-              </ul>
-            </div>
+return (
+		<>
+			<footer
+				className="md:page-footer font-small  pt-4 mt-7 bg-blue-900"
+				style={{ color: "white", width: "100%", height: "100%" }}
+			>
+				<div className="container-fluid text-center text-md-left">
+					<div className="row">
+						<div className="col-md-3 mt-md-0 mt-3">
+							<h5 className="text-uppercase">{t("support")}</h5>
+							<ul className="list-unstyled">
+								<li>
+									<a href="#!" className="alinks">
+										{t("covid")}
+									</a>
+								</li>
+								<li>
+									<a href="#!" className="alinks">
+										{t("MYT")}
+									</a>
+								</li>
+								<li>
+									<a href="#!" className="alinks">
+										{t("AHC")}
+									</a>
+								</li>
+								<li>
+									<a href="#!" className="alinks">
+										{t("SRC")}
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div className="col-md-3 mt-md-0 mt-3">
+							<h5 className="text-uppercase">{t("discover")}</h5>
+
+
+							<ul className="list-unstyled">
+								<li>
+									<a href="#!" className="alinks">
+										{t("GLP")}
+									</a>
+								</li>
+								<li>
+									<a href="#!" className="alinks">
+										{t("SHD")}
+									</a>
+								</li>
+								<li>
+									<a href="#!" className="alinks">
+										{t("TA")}
+									</a>
+								</li>
+								<li>
+									<a href="#!" className="alinks">
+										{t("BB")}
+									</a>
+								</li>
+							</ul>
+						</div>
 
             {/* <hr className="clearfix w-100 d-md-none pb-0" /> */}
 
-            <div className="col-md-3 mb-md-0 mb-3">
-              <h5 className="text-uppercase">Terms and settings</h5>
-              <ul className="list-unstyled">
-                <li>
-                  <a href="#!" className="alinks">
-                    Privacy & cookies
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" className="alinks">
-                    Terms and conditions
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" className="alinks">
-                    Partner dispute
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" className="alinks">
-                    MSA Statement
-                  </a>
-                </li>
-              </ul>
-            </div>
 
-            <div className="col-md-3 mb-md-0 mb-3">
-              <h5 className="text-uppercase">Partners</h5>
-              <ul className="list-unstyled">
-                <li>
-                  <a href="#!" className="alinks">
-                    Extranet login
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" className="alinks">
-                    Extranet login
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" className="alinks">
-                    List your property
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" className="alinks">
-                    Become an affiliate
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+						<div className="col-md-3 mb-md-0 mb-3">
+							<h5 className="text-uppercase">{t("TAS")}</h5>
+							<ul className="list-unstyled">
+								<li>
+									<a href="#!" className="alinks">
+										{t("PC")}
+									</a>
+								</li>
+								<li>
+									<a href="#!" className="alinks">
+										{t("TC")}
+									</a>
+								</li>
+								<li>
+									<a href="#!" className="alinks">
+										{t("PD")}
+									</a>
+								</li>
+								<li>
+									<a href="#!" className="alinks">
+										{t("MSAS")}
+									</a>
+								</li>
+							</ul>
+						</div>
 
-        <div className="footer-copyright text-center py-3 mt-5">
-          Copyright ©
-          <a href="#!"> 1996–2024 Booking.com™. All rights reserved.</a>
-        </div>
-      </footer>
-    </>
-  );
+						<div className="col-md-3 mb-md-0 mb-3">
+							<h5 className="text-uppercase">{t("partners")}</h5>
+							<ul className="list-unstyled">
+								<li>
+									<a href="#!" className="alinks">
+										{t("extranet")}
+									</a>
+								</li>
+								<li>
+									<a href="#!" className="alinks">
+										{t("extranet")}
+									</a>
+								</li>
+								<li>
+									<a href="#!" className="alinks">
+										{t("propertylist")}
+									</a>
+								</li>
+								<li>
+									<a href="#!" className="alinks">
+										{t("affiliate")}
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div className="footer-copyright text-center py-3 mt-5">
+					{t("copyright")}
+					<a href="#!"> {reservedRights[0]}</a>
+					{reservedRights[1]}
+				</div>
+			</footer>
+		</>
+	);
 };
 
 export default Footer;
