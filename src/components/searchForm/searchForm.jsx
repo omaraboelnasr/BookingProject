@@ -1,16 +1,21 @@
 import "../../styles/stayesHeader.css";
 import { DateRange } from "react-date-range";
 import { useState } from "react";
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css"; // theme css file
+import "react-date-range/dist/styles.css"; 
+import "react-date-range/dist/theme/default.css"; 
 import { format } from "date-fns";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoBedOutline , IoPersonOutline } from "react-icons/io5";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
-const SearchForm = () => {
-    const [destination, setDestination] = useState("");
+
+
+const SearchForm = ({ data }) => {
+    const { t, i18n } = useTranslation();
+
+    // const [destination, setDestination] = useState("");
     const location = useLocation();
     const { destination:city, date:choosenDate, options:choosenOption } = location.state|| {};
     const [openDate, setOpenDate] = useState(false);
@@ -27,6 +32,7 @@ const SearchForm = () => {
     children: 0,
     room: 1,
     });
+
 
     useEffect(() => {
         if(city){
@@ -59,25 +65,57 @@ const SearchForm = () => {
     navigate("/hotels", { state: { destination, date, options } });
     };
 
+
+    const [destination, setDestination] = useState("");
+    const [filteredData, setFilteredData] = useState([]);
+
+    useEffect(() => {
+        if (data) {
+     
+            const filtered = data.filter(item =>
+                item.toLowerCase().includes(destination.toLowerCase())
+            );
+            setFilteredData(filtered);
+        }
+    }, [data, destination]);
+
+
     return (
-            <div className=' container'>
-            <div className=' justify-between flex flex-row items-center border-5 bg-white flex-wrap border-yellow-500 rounded-md max-w-7xl headerSearch'>
-            <div className='flex self-center'>
-            <IoBedOutline className="headerIcon" />
+            <div className=' container '>
+            <div className=' md:justify-between flex flex-row md:flex-col items-center border-5 bg-white flex-wrap border-yellow-500 rounded-lg max-w-7xl headerSearch'>
+            {/* <div className='flex self-center'>
+            <IoBedOutline className="headerIcon mr-2" />
             <input
                 type="text"
-                placeholder="Where are you going?"
-                className="headerSearchInput"
+                placeholder={t("where")}
+                className="headerSearchInput mr-2"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
             />
-            </div>
+            </div> */}
+
+<div className='flex self-center'>
+            <IoBedOutline className="headerIcon mr-2" />
+            <input
+                type="text"
+                placeholder={t("where")}
+                className="headerSearchInput mr-2"
+                value={destination}
+                onChange={(e) => setDestination(e.target.value)}
+            />
+            <ul>
+                {filteredData.map((item, index) => (
+                    <li key={index}>{item}</li>
+                ))}
+            </ul>
+        </div>
+
             <div className='flex self-center'>
-            <MdOutlineCalendarMonth className="headerIcon" />
+            <MdOutlineCalendarMonth className="headerIcon ml-2" />
                 <span
                 onClick={() => setOpenDate(!openDate)}
                 className="headerSearchText"
-            >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
+            >{`${format(date[0].startDate, "MM/dd/yyyy")} __ ${format(
                 date[0].endDate,
                 "MM/dd/yyyy"
             )}`}</span>
@@ -93,15 +131,15 @@ const SearchForm = () => {
             )}
             </div>
             <div className='flex self-center'>
-            <IoPersonOutline className="headerIcon" />
+            <IoPersonOutline className="headerIcon ml-2" />
             <span
             onClick={() => setOpenOptions(!openOptions)}
             className="headerSearchText"
-            >{`${options.adult} adult · ${options.children} children · ${options.room} room`}</span>
+            >{`${options.adult} ${t("adult")} · ${options.children} ${t("children")} · ${options.room} ${t("room")}`}</span>
             {openOptions && (
             <div className="options">
                 <div className="optionItem">
-                    <span className="optionText">Adult</span>
+                    <span className="optionText">{t("adult")}</span>
                     <div className="optionCounter">
                     <button
                         disabled={options.adult <= 1}
@@ -122,7 +160,7 @@ const SearchForm = () => {
                 </div>
                 </div>
                 <div className="optionItem">
-                    <span className="optionText">Children</span>
+                    <span className="optionText">{t("children")}</span>
                     <div className="optionCounter">
                     <button
                         disabled={options.children <= 0}
@@ -143,7 +181,7 @@ const SearchForm = () => {
                     </div>
                 </div>
                 <div className="optionItem">
-                    <span className="optionText">Room</span>
+                    <span className="optionText">{t("room")}</span>
                     <div className="optionCounter">
                     <button
                         disabled={options.room <= 1}
@@ -167,8 +205,8 @@ const SearchForm = () => {
             )}
             </div>
             <div>
-            <button className="headerBtn" onClick={handleSearch}>
-            Search
+            <button className="headerBtn pr-8 pl-8" onClick={handleSearch}>
+            {t("Search")}
             </button>
             </div>
                 

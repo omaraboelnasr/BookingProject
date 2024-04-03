@@ -21,10 +21,10 @@ const ExploreEgypt = () => {
 						{t('popular destinations')}
 					</h5>
 				</div>
-				<Container className="flex space-x-4 pt-3">
+				<Container className="md:flex space-x-4 pt-3 grid grid-cols-2">
 					<Card
 						style={{ width: "10rem" }}
-						className="border-0 cityCard"
+						className="border-0 cityCard ml-3"
 						onClick={() => handleClick("alexandria")}
 					>
 						<img

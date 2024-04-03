@@ -14,10 +14,10 @@ const PropertyType = () => {
 						{t('property type')}
 					</h3>
 				</div>
-				<Container className="flex space-x-4 pt-3">
+				<Container className="md:flex space-x-4 pt-3 ">
 					<Card
 						style={{ width: "18rem" }}
-						className="border-0 cityCard"
+						className="border-0 cityCard ml-3"
 					>
 						<img
 							src="/images/hotelsm.jpeg"

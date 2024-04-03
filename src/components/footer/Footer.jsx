@@ -4,8 +4,8 @@ const Footer = () => {
   return (
     <>
       <footer
-        className="page-footer font-small  pt-4 mt-7 bg-blue-900"
-        style={{ color: "white", width: "100%", height: "300px" }}
+        className="md:page-footer font-small  pt-4 mt-7 bg-blue-900"
+        style={{ color: "white", width: "100%", height: "100%" }}
       >
         <div className="container-fluid text-center text-md-left">
           <div className="row">
@@ -61,7 +61,7 @@ const Footer = () => {
               </ul>
             </div>
 
-            <hr className="clearfix w-100 d-md-none pb-0" />
+            {/* <hr className="clearfix w-100 d-md-none pb-0" /> */}
 
             <div className="col-md-3 mb-md-0 mb-3">
               <h5 className="text-uppercase">Terms and settings</h5>
