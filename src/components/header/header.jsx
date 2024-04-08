@@ -12,12 +12,13 @@ import classNames from "classnames";
 import { authenticationContext } from "../../context/authentication";
 import { useTranslation } from "react-i18next";
 import { faLungs } from "@fortawesome/free-solid-svg-icons";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 const Header = () => {
 	const { t, i18n } = useTranslation();
 	const lngs = {
-		en: { nativeName: "En" },
-		ar: { nativeName: "Ar" },
+		en: { nativeName: <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQItKRYKh2e6KgmbWxAHtkIei0vf4HY4_z86DxaaDiWnA&s" alt="" className="w-5 h-5"/> },
+		ar: { nativeName: <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5MrDMFjTpvP6RwQtnmLESYGpZwd8UXGJALAidi5GGyg&s" alt=""  className="w-5 h-5"/> },
 	};
 	const { isAuth, setAuth } = useContext(authenticationContext);
 	const [userName, setUserName] = useState(
@@ -57,7 +58,7 @@ const Header = () => {
 					>
 						Booking.com
 					</Navbar.Brand>
-					<div>
+					{/* <div>
 						{Object.keys(lngs).map((lng) => {
 							return (
 								<button
@@ -71,11 +72,27 @@ const Header = () => {
 								</button>
 							);
 						})}
-					</div>
+					</div> */}
+
+<div  className="bg-blue-900  ">
+<DropdownButton title={lngs[i18n.language].nativeName} id="dropdown-basic"  className="bg-blue-900 ">
+            {Object.keys(lngs).map((lng) => (
+              <Dropdown.Item
+                key={lng}
+                onClick={() => i18n.changeLanguage(lng)}
+                disabled={i18n.resolvedLanguage === lng}
+				className="flexp-1 justify-center bg-blue-900 hidden"
+              >
+                {lngs[lng].nativeName}
+              </Dropdown.Item>
+            ))}
+          </DropdownButton >
+	</div>
+
 					{isAuth ? (
 						<Menu
 							as="div"
-							className="relative inline-block text-left"
+							className="relative inline-block text-left "
 						>
 							<div>
 								<Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
@@ -122,7 +139,7 @@ const Header = () => {
 							</Transition>
 						</Menu>
 					) : (
-						<Nav className="ms-auto">
+						<Nav className="ml-9">
 							<button className="px-2 py-2 ml-5 text-blue-800 bg-white rounded-sm">
 								<NavLink
 									to="/register"
