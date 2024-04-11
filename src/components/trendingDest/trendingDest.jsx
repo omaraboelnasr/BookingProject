@@ -25,12 +25,12 @@ const TrendingDest = () => {
 				</div>
 				<Container className="pt-3 flex space-x-4">
 					<Card
-						className="text-white cityCard"
+						className="text-white cityCard ml-4"
 						style={{ width: "34rem" }}
 						onClick={() => handleClick("cairo")}
 					>
-						<Card.Img src="/images/cairo.jpg" alt="Card image" />
-						<Card.ImgOverlay>
+						<Card.Img  src="/images/cairo.jpg" alt="Card image" />
+						<Card.ImgOverlay >
 							<Card.Title
 								style={{ fontWeight: "bold", fontSize: "25px" }}
 								className="textShadow"
@@ -55,35 +55,35 @@ const TrendingDest = () => {
 						</Card.ImgOverlay>
 					</Card>
 				</Container>
-				<Container className="pt-3 flex space-x-4">
+				<Container className="pt-3 md:flex space-x-4 ">
 					<Card
-						className="text-white cityCard"
+						className="text-white cityCard ml-3 sm:mb-2 "
 						style={{ width: "25rem" }}
 						onClick={() => handleClick("alexandria")}
 					>
 						<Card.Img
 							src="/images/alex.jpg"
 							alt="Card image"
-							style={{ width: "354px", height: "255px" }}
+							style={{ width: "400px", height: "255px" }}
 						/>
 						<Card.ImgOverlay>
 							<Card.Title
 								style={{ fontWeight: "bold", fontSize: "25px" }}
-								className="textShadow"
+								className="textShadow "
 							>
 								{t("Alexandria")}
 							</Card.Title>
 						</Card.ImgOverlay>
 					</Card>
 					<Card
-						className="text-white cityCard"
+						className="text-white cityCard sm:mb-2  "
 						style={{ width: "25rem" }}
 						onClick={() => handleClick("sharmelsheikh")}
 					>
 						<Card.Img
 							src="/images/sharm.jpeg"
 							alt="Card image"
-							style={{ width: "354px", height: "255px" }}
+							style={{ width: "400px", height: "255px" }}
 						/>
 						<Card.ImgOverlay>
 							<Card.Title
@@ -95,14 +95,14 @@ const TrendingDest = () => {
 						</Card.ImgOverlay>
 					</Card>
 					<Card
-						className="text-white cityCard"
+						className="text-white cityCard mb-2"
 						style={{ width: "25rem" }}
 						onClick={() => handleClick("dahab")}
 					>
 						<Card.Img
 							src="/images/daha.jpg"
 							alt="Card image"
-							style={{ width: "354px", height: "255px" }}
+							style={{ width: "400px", height: "255px" }}
 						/>
 						<Card.ImgOverlay>
 							<Card.Title
