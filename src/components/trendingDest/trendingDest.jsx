@@ -5,7 +5,6 @@ import "../../styles/cardStyle.css";
 import { useNavigate } from "react-router-dom/dist/umd/react-router-dom.development";
 import { useTranslation } from "react-i18next";
 
-
 const TrendingDest = () => {
 	const { t, i18n } = useTranslation();
 
@@ -18,10 +17,10 @@ const TrendingDest = () => {
 			<Container className="pt-20" style={{ maxWidth: "1100px" }}>
 				<div>
 					<h3 style={{ fontWeight: "bold", fontSize: "25px" }}>
-						{t('trending')}
+						{t("trending")}
 					</h3>
 					<h5 style={{ fontSize: "17px", color: "#a2a2a2" }}>
-						{t('travellers')}
+						{t("travellers")}
 					</h5>
 				</div>
 				<Container className="pt-3 flex space-x-4">
@@ -72,7 +71,7 @@ const TrendingDest = () => {
 								style={{ fontWeight: "bold", fontSize: "25px" }}
 								className="textShadow"
 							>
-								{t('Alexandria')}
+								{t("Alexandria")}
 							</Card.Title>
 						</Card.ImgOverlay>
 					</Card>
@@ -91,7 +90,7 @@ const TrendingDest = () => {
 								style={{ fontWeight: "bold", fontSize: "25px" }}
 								className="textShadow"
 							>
-								{t('Sharm El Sheikh')}
+								{t("Sharm El Sheikh")}
 							</Card.Title>
 						</Card.ImgOverlay>
 					</Card>
@@ -110,7 +109,7 @@ const TrendingDest = () => {
 								style={{ fontWeight: "bold", fontSize: "25px" }}
 								className="textShadow"
 							>
-								{t('Dahab')}
+								{t("Dahab")}
 							</Card.Title>
 						</Card.ImgOverlay>
 					</Card>

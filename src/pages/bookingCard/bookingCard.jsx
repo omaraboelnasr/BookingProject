@@ -18,34 +18,7 @@ const BookingCard = () => {
 		return total + room.quantity * room.room.price;
 	}, 0);
 
-	// const submitBooking = () => {
-	// 	const user = localStorage.getItem("userId");
-	// 	const room = rooms.map((room) => room.room._id);
-	// 	const checkIn = date?.[0]?.startDate;
-	// 	const checkOut = date?.[0]?.endDate;
-	// 	const guests = 4;
-	// 	const bookingData = {
-	// 		user,
-	// 		room,
-	// 		guests,
-	// 		checkIn,
-	// 		checkOut,
-	// 		totalPrice,
-	// 	};
-	// 	console.log(user, room, guests, checkIn, checkOut, totalPrice);
-	// 	axiosInstance
-	// 		.post("/booking", bookingData)
-	// 		.then((response) => {
-	// 			// handle successful response
-	// 			console.log("Booking created successfully", response.data);
-	// 			// show success message to user or redirect to a different page
-	// 		})
-	// 		.catch((error) => {
-	// 			// handle error during booking creation
-	// 			console.error("Error creating booking", error.response.data);
-	// 			// show error message to user or redirect to a different page
-	// 		});
-	// };
+	console.log(date);
 
 	const user = localStorage.getItem("userId");
 	const room = rooms.map((room) => room.room._id);
