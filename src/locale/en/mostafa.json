@@ -1,4 +1,5 @@
 {
+	"or": "or",
 	"_comment": "Header",
 	"login": "Sign in",
 	"register": "Register",
@@ -33,5 +34,13 @@
 	"propertylist": "List your property",
 	"affiliate": "Become an affiliate",
 	"copyright": "Copyright @",
-	"reservedrights": "1996–2024 Booking.com™.\n All rights reserved."
+	"reservedrights": "1996–2024 Booking.com™.\n All rights reserved.",
+	"_____comment": "Register",
+	"createAnAccount": "Create an account",
+	"emailAddress": "Email Address",
+	"enterEmailAddress": "Enter your email address",
+	"password": "Password",
+	"enterPassword": "Enter your password",
+	"confirmPassword": "Confirm Password",
+	"confirmYourPassword": "Confirm your password"
 }
