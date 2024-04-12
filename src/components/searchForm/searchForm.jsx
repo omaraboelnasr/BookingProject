@@ -114,7 +114,7 @@ const SearchForm = ({ data }) => {
             <MdOutlineCalendarMonth className="headerIcon ml-2" />
                 <span
                 onClick={() => setOpenDate(!openDate)}
-                className="headerSearchText"
+                className="headerSearchText ml-2 "
             >{`${format(date[0].startDate, "MM/dd/yyyy")} __ ${format(
                 date[0].endDate,
                 "MM/dd/yyyy"
@@ -130,7 +130,7 @@ const SearchForm = ({ data }) => {
                 />
             )}
             </div>
-            <div className='flex self-center'>
+            <div className='flex self-center '>
             <IoPersonOutline className="headerIcon ml-2" />
             <span
             onClick={() => setOpenOptions(!openOptions)}
@@ -205,7 +205,7 @@ const SearchForm = ({ data }) => {
             )}
             </div>
             <div>
-            <button className="headerBtn pr-8 pl-8" onClick={handleSearch}>
+            <button className="headerBtn " onClick={handleSearch}>
             {t("Search")}
             </button>
             </div>

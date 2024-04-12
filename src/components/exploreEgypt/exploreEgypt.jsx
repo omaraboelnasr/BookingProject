@@ -48,6 +48,7 @@ const ExploreEgypt = () => {
 						<img
 							src="/images/hurghadasm.jpg"
 							alt=""
+							className=""
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
