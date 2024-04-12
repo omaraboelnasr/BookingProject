@@ -26,6 +26,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getHotel } from "../../services/hotels";
 import { useEffect } from "react";
 import { listRooms } from "../../services/rooms";
+import { useTranslation } from "react-i18next";
 
 const Rooms = () => {
 	const [hotel, setHotel] = useState([]);
@@ -33,6 +34,7 @@ const Rooms = () => {
 	const [selectedValues, setSelectedValues] = useState([]);
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const { t, i18n } = useTranslation();
 
 	const location = useLocation();
 	const getTheHotel = async () => {
@@ -92,7 +94,7 @@ const Rooms = () => {
 						<Col>
 							<div className="flex justify-between">
 								<div className="flex">
-									<h2>{hotel.hotelName}</h2>
+									<h2>{i18n.language === 'ar' ? hotel.hotelName_ar : hotel.hotelName}</h2>
 									<div
 										className="flex ms-3 mt-2"
 										style={{ color: "#febb02" }}
@@ -104,8 +106,8 @@ const Rooms = () => {
 								</div>
 								<div className="flex space-x-4 ">
 									<div>
-										<p className="p-0 m-0">Good</p>
-										<p className="p-0 m-0">50 reviews</p>
+										<p className="p-0 m-0">{t('Good')}</p>
+										<p className="p-0 m-0">50 {t('reviews')}</p>
 									</div>
 									<div>
 										<Badge
@@ -119,7 +121,7 @@ const Rooms = () => {
 							</div>
 							<div className="flex mt-2">
 								<MdLocationPin className="fs-3 text-blue-900" />
-								<p>{hotel.hotelAddress}</p>
+								<p>{i18n.language === 'ar' ? hotel.hotelAddress_ar : hotel.hotelAddress}</p>
 							</div>
 						</Col>
 					</Row>
@@ -176,53 +178,53 @@ const Rooms = () => {
 					<Row>
 						<Col>
 							<div className="pt-4">
-								<h5>Description</h5>
-								<p>{hotel.hotelDescription}</p>
+								<h5>{t('description')}</h5>
+								<p>{i18n.language === 'ar' ? hotel.hotelDescription_ar : hotel.hotelDescription}</p>
 							</div>
 						</Col>
 					</Row>
 					<Row>
 						<Col>
 							<div className="pt-4">
-								<h5>Most popular facilities</h5>
+								<h5>{t('Most popular facilities')}</h5>
 								<div className="flex flex-wrap">
 									<p className="me-3">
 										{" "}
 										<MdOutlineAirportShuttle className="inline-block me-1 text-green-500 fs-4" />
-										Airport shuttle (free)
+										{t('Airport shuttle (free)')}
 									</p>
 									<p className="me-3">
 										<LiaSmokingBanSolid className="inline-block me-1 text-green-500 fs-4" />
-										Non-smoking rooms
+										{t('Non-smoking rooms')}
 									</p>
 									<p className="me-3">
 										<MdOutlineRoomService className="inline-block me-1 text-green-500 fs-4" />
-										Room service
+										{t('Room service')}
 									</p>
 									<p className="me-3">
 										{" "}
 										<RiRestaurantLine className="inline-block me-1 text-green-500 fs-4" />
-										Restaurant
+										{t('Restaurant')}
 									</p>
 									<p className="me-3">
 										<GrWifi className="inline-block me-1 text-green-500 fs-4" />
-										Free WiFi
+										{t('Free WiFi')}
 									</p>
 									<p className="me-3">
 										<BiDrink className="inline-block me-1 text-green-500 fs-4" />
-										Bar
+										{t('Bar')}
 									</p>
 									<p className="me-3">
 										<MdBalcony className="inline-block me-1 text-green-500 fs-4" />
-										Terrace
+										{t('Terrace')}
 									</p>
 									<p className="me-3">
 										<MdOutlineCoffeeMaker className="inline-block me-1 text-green-500 fs-4" />
-										Tea/coffee maker in all rooms
+										{t('Tea/coffee maker in all rooms')}
 									</p>
 									<p className="me-3">
 										<MdOutlineFreeBreakfast className="inline-block me-1 text-green-500 fs-4" />
-										Breakfast
+										{t('Breakfast')}
 									</p>
 								</div>
 							</div>

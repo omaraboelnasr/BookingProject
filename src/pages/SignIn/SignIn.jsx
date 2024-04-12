@@ -6,8 +6,10 @@ import { useContext, useState } from "react";
 import { authenticationContext } from "../../context/authentication";
 import toast, { Toaster } from "react-hot-toast";
 import { userSignin } from "../../services/user";
+import { useTranslation } from "react-i18next";
 
 const SignIn = () => {
+	const { t, i18n } = useTranslation();
 	const { isAuth, setAuth } = useContext(authenticationContext);
 	const [error, setError] = useState("");
 	const {
@@ -46,7 +48,7 @@ const SignIn = () => {
 			<div>
 				<div>
 					<h1 className="mt-4 text-2xl font-bold ">
-						Sign in or create an account
+						{`${t("login")} ${t("or")} ${t("createAnAccount")}`}
 					</h1>
 					<div className=" mt-9">
 						<div>
@@ -55,7 +57,7 @@ const SignIn = () => {
 									htmlFor="email"
 									className="font-semibold "
 								>
-									Email address
+									{t("emailAddress")}
 								</label>
 								<br />
 								<input
@@ -67,7 +69,7 @@ const SignIn = () => {
 											/^[a-zA-Z]{3,22}\d*(@)(gmail|yahoo|outlook|hotmail)(.com)$/,
 									})}
 									className="w-full px-3 py-2 pl-2 text-gray-900 bg-transparent border rounded-sm shadow-sm  border-slate-400 placeholder-slate-400 sm:text-sm sm:leading-6 focus:outline-none focus:ring-2 focus:ring-blue-600"
-									placeholder="Enter your email address"
+									placeholder={t("enterEmailAddress")}
 								/>
 								{errors.email && (
 									<p className="text-danger">Invalid Email</p>
@@ -76,7 +78,7 @@ const SignIn = () => {
 									htmlFor="password"
 									className="font-semibold "
 								>
-									Password
+									{t("password")}
 								</label>
 								<br />
 								<div className="relative">
@@ -88,9 +90,15 @@ const SignIn = () => {
 											minLength: "6",
 										})}
 										className=" w-full px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
-										placeholder="Enter a Password"
+										placeholder={t("enterPassword")}
 									/>
-									<div className=" text-md flex justify-center items-center px-2 absolute right-1 top-[20px]">
+									<div
+										className={`text-md flex justify-center items-center px-2 absolute top-[20px] ${
+											i18n.language === "en"
+												? "right-1"
+												: "left-1"
+										}`}
+									>
 										<button>
 											<MdOutlineRemoveRedEye />
 										</button>
@@ -105,7 +113,7 @@ const SignIn = () => {
 									type="submit"
 									className="flex justify-center w-full py-3 my-5 text-lg font-semibold leading-6 text-white bg-blue-600 rounded-sm shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-blue-800"
 								>
-									Sign in
+									{t("login")}
 								</button>
 								<Toaster />
 							</form>

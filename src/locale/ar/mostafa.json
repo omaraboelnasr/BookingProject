@@ -1,7 +1,8 @@
 {
+	"or": "أو",
 	"_comment": "Header",
-	"login": "تسجيل الدخول",
-	"register": "يسجل",
+	"login": "سجل الدخول",
+	"register": "سجل",
 	"logout": "تسجيل خروج",
 	"___comment": "Menu Bar",
 	"stays": "الإقامات",
@@ -33,5 +34,13 @@
 	"propertylist": "قائمة الممتلكات الخاصة بك",
 	"affiliate": "كن حليفا",
 	"copyright": "حقوق النشر @",
-	"reservedrights": "1996–2024 Booking.com™.\n كل الحقوق محفوظة."
+	"reservedrights": "1996–2024 Booking.com™.\n كل الحقوق محفوظة.",
+	"_____comment": "Register",
+	"createAnAccount": "أنشئ حسابا",
+	"emailAddress": "البريد الالكتروني",
+	"enterEmailAddress": "ادحل بريدك الالكتروني",
+	"password": "كلمة المرور",
+	"enterPassword": "ادخل كلمة المرور",
+	"confirmPassword": "تأكيد كلمة المرور",
+	"confirmYourPassword": "اكد كلمة المرور"
 }
