@@ -50,14 +50,32 @@ const Header = () => {
 
 	return (
 		<>
-			<Navbar className="bg-blue-900" data-bs-theme="dark">
-				<Container style={{ maxWidth: "1100px" }}>
+			<Navbar className="bg-blue-900 " data-bs-theme="dark">
+				<Container className="pb-9" style={{ maxWidth: "1100px" }}>
 					<Navbar.Brand
 						href="/"
 						style={{ fontWeight: "bold", fontSize: "25px" }}
 					>
 						Booking.com
+
+
+
 					</Navbar.Brand>
+				
+					<span  className="mr-3">
+<DropdownButton title={lngs[i18n.language].nativeName} id="dropdown-basic"  className="bg-blue-900 mr-80 mb-0  text-justify ">
+            {Object.keys(lngs).map((lng) => (
+              <Dropdown.Item
+                key={lng}
+                onClick={() => i18n.changeLanguage(lng)}
+                disabled={i18n.resolvedLanguage === lng}
+				className="flex p-1 justify-center bg-blue-900 "
+              >
+                {lngs[lng].nativeName}
+              </Dropdown.Item>
+            ))}
+          </DropdownButton >
+	</span>
 					{/* <div>
 						{Object.keys(lngs).map((lng) => {
 							return (
@@ -74,35 +92,36 @@ const Header = () => {
 						})}
 					</div> */}
 
-<div  className="bg-blue-900  ">
+{/* <div  className="ml-44  ">
 <DropdownButton title={lngs[i18n.language].nativeName} id="dropdown-basic"  className="bg-blue-900 ">
             {Object.keys(lngs).map((lng) => (
               <Dropdown.Item
                 key={lng}
                 onClick={() => i18n.changeLanguage(lng)}
                 disabled={i18n.resolvedLanguage === lng}
-				className="flexp-1 justify-center bg-blue-900 hidden"
+				className="flex p-1 justify-center bg-blue-900 "
               >
                 {lngs[lng].nativeName}
               </Dropdown.Item>
             ))}
           </DropdownButton >
-	</div>
+	</div> */}
 
 					{isAuth ? (
 						<Menu
 							as="div"
-							className="relative inline-block text-left "
+							className="relative inline text-left ml-36 "
 						>
-							<div>
-								<Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+							
+							<span>
+								<Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-2 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
 									{userName}
 									<ChevronDownIcon
 										className="-mr-1 h-5 w-5 text-gray-400"
 										aria-hidden="true"
 									/>
 								</Menu.Button>
-							</div>
+							</span>
 							<Transition
 								as={Fragment}
 								enter="transition ease-out duration-100"
