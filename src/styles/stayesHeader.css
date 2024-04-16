@@ -10,6 +10,7 @@
     border: 5px solid #febb02;
     border-radius: 5px;
     position: relative;
+    
   }
   .headerIcon {
     color: rgb(148, 147, 147);
@@ -34,11 +35,21 @@
     color: lightgray;
     cursor: pointer;
   }
+  .headerSearchText1{
+    
+    color: lightgray;
+    cursor: pointer;
+    height: 50px;
+
+  }
   
   .date {
     position: absolute;
     top: 50px;
     z-index: 2;
+    align-items: center;
+
+    
   }
   
   .options {
@@ -90,7 +101,7 @@
     color: white;
     border-radius: 3px;
   }
-
+z
   .headerBtn:hover{
     background-color: #245597;
   }
@@ -101,3 +112,114 @@
     gap: 10px;
     height: 50px;
   }
+  .headerBtn2{
+    /* display: flex; */
+    position: absolute;
+    /* left: -95px; */          /* in case arabic*/
+    right: -20px;                        /* in case english*/
+    background-color: #166fe6;
+    padding-top: 14px ;
+    padding-bottom: 14px ;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+  border-color: #febb02;
+    color: white;
+    border-radius: 3px;
+    margin-right: 19px;
+    margin-left: 9px;
+  }
+  @media (max-width: 767px ) {
+  
+
+    .headerSearchItem {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      border-right: 5px solid #febb02;
+      height: 50px;
+      margin-left: 25px;
+    }
+    
+    .headerSearchInput {
+      width: 70%; 
+      outline: none;
+    }
+    .date{
+      margin-top: 10px;
+      display: block;
+    }
+    
+    .headerBtn {
+      width: 30%; 
+      padding: 14px;
+      margin-right: 206px;
+      margin-top: 10px;
+      text-align: center;
+      color: white;
+      border-radius: 3px;
+    }
+   .headerBtn2{
+    display: block;
+    position: absolute;
+    top: 10px;
+    width: 30%; 
+    padding: 14px;
+    /* margin-right: 193px;
+    margin-top: 10px; */
+    margin-right:340px ;
+    margin-top: 39px;
+    text-align: center;
+    color: white;
+    border-radius: 3px;
+    left: 258px;
+    right: 12px;
+   } 
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+
+    .headerSearchItem {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      border-right: 5px solid #febb02;
+      height: 50px;
+      margin-left: 25px;
+    }
+    
+    .headerSearchInput {
+      width: 70%; 
+      outline: none;
+    }
+    .date{
+      margin-top: 10px;
+      display: block;
+    }
+    
+    .headerBtn {
+      width: 30%; 
+      padding: 14px;
+      margin-right: 193px;
+      margin-top: 10px;
+      text-align: center;
+      color: white;
+      border-radius: 3px;
+    }
+   .headerBtn2{
+    display: block;
+    position: absolute;
+    top: 9px;
+    left: 258px;   /* in case English */
+    width: 20%;  
+    padding: 14px;
+  
+    margin-right:534px ;
+    margin-top: 39px;
+    text-align: center;
+    color: white;
+    border-radius: 3px;
+    left: 258px;
+  
+   } 
+  } 

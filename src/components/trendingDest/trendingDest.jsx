@@ -23,9 +23,9 @@ const TrendingDest = () => {
 						{t("travellers")}
 					</h5>
 				</div>
-				<Container className="pt-3 flex space-x-4">
+				<Container className="pt-3 md:flex space-x-4">
 					<Card
-						className="text-white cityCard ml-4"
+						className="text-white cityCard ml-4 sm:mb-2"
 						style={{ width: "34rem" }}
 						onClick={() => handleClick("cairo")}
 					>
@@ -40,7 +40,7 @@ const TrendingDest = () => {
 						</Card.ImgOverlay>
 					</Card>
 					<Card
-						className="text-white cityCard"
+						className="text-white cityCard sm:mb-2"
 						style={{ width: "34rem" }}
 						onClick={() => handleClick("hurghada")}
 					>
