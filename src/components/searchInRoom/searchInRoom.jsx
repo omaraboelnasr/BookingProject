@@ -2,8 +2,8 @@ import Container from 'react-bootstrap/Container';
 import "../../styles/stayesHeader.css";
 import { DateRange } from "react-date-range";
 import { useEffect, useState } from "react";
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css"; // theme css file
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css"; 
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { IoPersonOutline } from "react-icons/io5";
@@ -61,7 +61,7 @@ const SearchInRoom = (searchHistory) => {
             <MdOutlineCalendarMonth className="headerIcon" />
                 <span
                 onClick={() => setOpenDate(!openDate)}
-                className="headerSearchText"
+                className="headerSearchText1"
             >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
                 date[0].endDate,
                 "MM/dd/yyyy"
@@ -81,7 +81,7 @@ const SearchInRoom = (searchHistory) => {
             <IoPersonOutline className="headerIcon" />
             <span
             onClick={() => setOpenOptions(!openOptions)}
-            className="headerSearchText"
+            className="headerSearchText1"
             >{`${options.adult} adult · ${options.children} children · ${options.room} room`}</span>
             {openOptions && (
             <div className="options">
@@ -152,7 +152,7 @@ const SearchInRoom = (searchHistory) => {
             )}
             </Col>
             <Col lg="2">
-            <button className="headerBtn" onClick={handleSearch}>
+            <button className="headerBtn2 ml-24" onClick={handleSearch}>
             Change Search
             </button>
             </Col>
