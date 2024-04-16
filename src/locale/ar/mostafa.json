@@ -1,8 +1,11 @@
 {
 	"or": "أو",
+	"invalid": "خاطئ",
+	"listProperty": "اعرض عقارك",
 	"_comment": "Header",
 	"login": "سجل الدخول",
 	"register": "سجل",
+	"manageAccount": "إدارة الحساب",
 	"logout": "تسجيل خروج",
 	"___comment": "Menu Bar",
 	"stays": "الإقامات",

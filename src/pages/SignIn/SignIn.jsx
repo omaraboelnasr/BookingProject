@@ -20,15 +20,16 @@ const SignIn = () => {
 
 	const navigate = useNavigate();
 	const handleSignIn = async (user) => {
-		console.log(user);
 		if (!errors.email && !errors.password) {
 			try {
 				const response = await userSignin(user.email, user.password);
-				const { email, userName, token, userId, active } = response;
+				const { email, userName, token, userId, active, owner } =
+					response;
 				localStorage.setItem("email", email);
 				localStorage.setItem("token", token);
 				localStorage.setItem("userName", userName);
 				localStorage.setItem("userId", userId);
+				localStorage.setItem("owner", owner);
 				if (!active) {
 					return navigate("/register");
 				}
@@ -72,7 +73,15 @@ const SignIn = () => {
 									placeholder={t("enterEmailAddress")}
 								/>
 								{errors.email && (
-									<p className="text-danger">Invalid Email</p>
+									<p className="text-danger">
+										{i18n.resolvedLanguage === "en"
+											? `${t("invalid")} ${t(
+													"emailAddress"
+											  )}`
+											: `${t("emailAddress")} ${t(
+													"invalid"
+											  )}`}
+									</p>
 								)}
 								<label
 									htmlFor="password"

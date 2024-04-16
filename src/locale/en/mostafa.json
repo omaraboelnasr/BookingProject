@@ -1,8 +1,11 @@
 {
 	"or": "or",
+	"invalid": "Invalid",
+	"listProperty": "List your property",
 	"_comment": "Header",
 	"login": "Sign in",
 	"register": "Register",
+	"manageAccount": "Manage account",
 	"logout": "Log out",
 	"___comment": "Menu Bar",
 	"stays": "Stays",

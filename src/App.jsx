@@ -20,6 +20,7 @@ import Protected from "./components/protected/protected";
 import UserProtected from "./components/userProtected/userProtected";
 import BookingCard from "./pages/bookingCard/bookingCard";
 import { classNames } from "classnames";
+import AddProperty from "./pages/AddProperty/addProperty";
 
 const routes = createBrowserRouter([
 	{
@@ -66,6 +67,14 @@ const routes = createBrowserRouter([
 				element: (
 					<Protected>
 						<BookingCard />
+					</Protected>
+				),
+			},
+			{
+				path: "/addproperty",
+				element: (
+					<Protected>
+						<AddProperty />
 					</Protected>
 				),
 			},
