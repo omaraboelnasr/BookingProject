@@ -26,7 +26,6 @@ const Header = () => {
 							alt=""
 							className="w-5 h-5"
 						/>
-						<span>en</span>
 					</div>
 				</>
 			),
@@ -41,7 +40,6 @@ const Header = () => {
 							alt=""
 							className="w-5 h-5"
 						/>
-						<span>ar</span>
 					</div>
 				</>
 			),
@@ -91,25 +89,6 @@ const Header = () => {
 					>
 						Booking.com
 					</Navbar.Brand>
-
-					<span className="mr-3">
-						<DropdownButton
-							title={lngs[i18n.language].nativeName}
-							id="dropdown-basic"
-							className="bg-blue-900 mr-80 mb-0  text-justify "
-						>
-							{Object.keys(lngs).map((lng) => (
-								<Dropdown.Item
-									key={lng}
-									onClick={() => i18n.changeLanguage(lng)}
-									disabled={i18n.resolvedLanguage === lng}
-									className="flex p-1 justify-center bg-blue-900 "
-								>
-									{lngs[lng].nativeName}
-								</Dropdown.Item>
-							))}
-						</DropdownButton>
-					</span>
 
 					<div className="flex justify-center items-center gap-3">
 						<DropdownButton
