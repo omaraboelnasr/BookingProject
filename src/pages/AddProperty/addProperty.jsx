@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axiosInstance from "./../../axios/index";
 
 export default function AddProperty() {
+	const userId = localStorage.getItem("userId");
 	const { register, handleSubmit } = useForm();
 	const [hidden, setHidden] = useState(true);
 	const isOwner = localStorage.getItem("owner");
@@ -26,7 +27,6 @@ export default function AddProperty() {
 		}
 	};
 	const submitHotel = (data) => {
-		const userid = localStorage.getItem("userId");
 		const {
 			distanceFromCenter,
 			hotelAddress,
@@ -42,23 +42,33 @@ export default function AddProperty() {
 			hotelSubDescription_ar,
 			hotelType,
 		} = data;
-		const hotelsJsonData = {
-			distanceFromCenter: JSON.stringify(distanceFromCenter),
-			hotelAddress: JSON.stringify(hotelAddress),
-			hotelAddress_ar: JSON.stringify(hotelAddress_ar),
-			hotelCity: JSON.stringify(hotelCity),
-			hotelCity_ar: JSON.stringify(hotelCity_ar),
-			hotelDescription: JSON.stringify(hotelDescription),
-			hotelDescription_ar: JSON.stringify(hotelDescription_ar),
-			hotelMainImage: JSON.stringify(hotelMainImage),
-			hotelName: JSON.stringify(hotelName),
-			hotelName_ar: JSON.stringify(hotelName_ar),
-			hotelSubDescription: JSON.stringify(hotelSubDescription),
-			hotelSubDescription_ar: JSON.stringify(hotelSubDescription_ar),
-			hotelType: JSON.stringify(hotelType),
-		};
 
-		console.log(hotelsJsonData);
+		const hotelsNewData = {
+			owner: userId,
+			distanceFromCenter: distanceFromCenter,
+			hotelAddress: hotelAddress,
+			hotelAddress_ar: hotelAddress_ar,
+			hotelCity: hotelCity,
+			hotelCity_ar: hotelCity_ar,
+			hotelDescription: hotelDescription,
+			hotelDescription_ar: hotelDescription_ar,
+			hotelMainImage: hotelMainImage,
+			hotelName: hotelName,
+			hotelName_ar: hotelName_ar,
+			hotelSubDescription: hotelSubDescription,
+			hotelSubDescription_ar: hotelSubDescription_ar,
+			hotelType: hotelType,
+			approved: false,
+		};
+		axiosInstance
+			.post("/hotels/owners", hotelsNewData)
+			.then((response) => {
+				console.log(response);
+				window.location.reload();
+			})
+			.catch((err) => {
+				console.log("error", err);
+			});
 	};
 
 	const roomsRef = useRef(null);
@@ -75,30 +85,35 @@ export default function AddProperty() {
 
 	const submitRooms = (data) => {
 		const { hotelId, roomType, bedType, guestNumber, price } = data;
-		const roomsJsonData = {
-			hotelId: JSON.stringify(hotelId),
-			roomType: JSON.stringify(roomType),
-			bedType: JSON.stringify(bedType),
-			guestNumber: JSON.stringify(guestNumber),
-			price: JSON.stringify(price),
+		const roomsNewData = {
+			hotelId: hotelId,
+			roomType: roomType,
+			bedType: bedType,
+			guestNumber: guestNumber,
+			price: price,
+			approved: false,
 		};
-		console.log(roomsJsonData);
+		axiosInstance
+			.post(`/rooms/owners/${hotelId}`, roomsNewData)
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
-	const hotelData = [
-		{
-			hotelId: 4,
-			hotelName: "Mostafa",
-		},
-		{
-			hotelId: 2,
-			hotelName: "Omar",
-		},
-		{
-			hotelId: 20,
-			hotelName: "Nada",
-		},
-	];
+	const [hotelsData, setHotelsData] = useState([]);
+	useEffect(() => {
+		axiosInstance
+			.get(`/hotels/owners/${userId}`)
+			.then((res) => {
+				setHotelsData(res.data.data);
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	}, [userId]);
 	return (
 		<>
 			<section className="container pt-5">
@@ -313,15 +328,13 @@ export default function AddProperty() {
 							</label>
 							<select
 								{...register("hotelId")}
-								type="text"
 								id="hotelId"
 								className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
+								placeholder="-- Select a hotel --"
 							>
-								{hotelData.map((hotel) => (
-									<option
-										key={hotel.hotelId}
-										value={hotel.hotelId}
-									>
+								<option value="">-- Select a hotel --</option>
+								{hotelsData.map((hotel) => (
+									<option key={hotel._id} value={hotel._id}>
 										{hotel.hotelName}
 									</option>
 								))}
