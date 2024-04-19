@@ -27,6 +27,7 @@ import { getHotel } from "../../services/hotels";
 import { useEffect } from "react";
 import { listRooms } from "../../services/rooms";
 import { useTranslation } from "react-i18next";
+import Rating from "../rating"
 
 const Rooms = () => {
 	const [hotel, setHotel] = useState([]);
@@ -95,26 +96,19 @@ const Rooms = () => {
 							<div className="flex justify-between">
 								<div className="flex">
 									<h2>{i18n.language === 'ar' ? hotel.hotelName_ar : hotel.hotelName}</h2>
-									<div
-										className="flex ms-3 mt-2"
-										style={{ color: "#febb02" }}
-									>
-										<FaStar />
-										<FaStar />
-										<FaStar />
-									</div>
+									<Rating stars={hotel.hotelRating}  />
 								</div>
 								<div className="flex space-x-4 ">
 									<div>
-										<p className="p-0 m-0">{t('Good')}</p>
-										<p className="p-0 m-0">50 {t('reviews')}</p>
+										{/* <p className="p-0 m-0">{t('Good')}</p> */}
+										<p className="p-0 m-0">{hotel.review} {t('reviews')}</p>
 									</div>
 									<div>
 										<Badge
 											bg="primary"
-											className="p-2 fs-6 mt-1"
+											className="p-3 fs-6 mt-1"
 										>
-											7.9
+											{hotel.hotelRating}
 										</Badge>
 									</div>
 								</div>

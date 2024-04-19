@@ -65,10 +65,10 @@ const Hotels = () => {
                                 <div className="flex space-x-4 mb-2">
                                     <div className="">
                                         <p className="font-semibold p-0 m-1">{t('good')}</p>
-                                        <p className="p-0 m-0">{t('reviews', { count: 50 })}</p>
+                                        <p className="p-0 m-0">{t('reviews')} { hotel.review } {t('Clients')} </p>
                                     </div>
                                     <div>
-                                        <div className="p-2 mt-1 bg-blue-800 text-white rounded-lg">7.9</div>
+                                        <div className="p-3 mt-1 bg-blue-800 text-white rounded-lg">{hotel.hotelRating}</div>
                                     </div>
                                 </div>
                                 <div>
