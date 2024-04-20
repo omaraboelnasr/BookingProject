@@ -195,7 +195,7 @@ export default function AddProperty() {
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
 									>
 										<option value="">
-											-- Select a type --
+											-- {t("selectPropertyType")} --
 										</option>
 										<option>hotel</option>
 										<option>apartment</option>
