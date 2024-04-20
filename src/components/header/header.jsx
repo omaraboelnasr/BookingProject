@@ -57,10 +57,12 @@ const Header = () => {
 
 	const navigate = useNavigate();
 	const logOut = () => {
+		localStorage.removeItem("isOwner");
 		localStorage.removeItem("token");
 		localStorage.removeItem("email");
 		localStorage.removeItem("userName");
 		localStorage.removeItem("userId");
+		localStorage.removeItem("owner");
 		setUserName("");
 		setEmail("");
 		navigate("/");
