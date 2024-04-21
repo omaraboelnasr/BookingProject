@@ -40,7 +40,7 @@ const Hotels = () => {
         navigate(`/rooms/${hotelId}`, { state: { destination:city, date, options } });
     }
 
-    
+
     const handleStarFilter = (event)=>{
         const starRating = event.target.value;
         const checkbox = event.target;
@@ -66,6 +66,7 @@ const Hotels = () => {
                 }
                 return selectedType
             }
+
 
     return (
         <div>
