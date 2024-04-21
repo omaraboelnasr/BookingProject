@@ -1,9 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import axiosInstance from "./../../axios/index";
+import { useTranslation } from "react-i18next";
 
 export default function AddProperty() {
-	const { register, handleSubmit } = useForm();
+	const userId = localStorage.getItem("userId");
+	const { t, i18n } = useTranslation();
+	const {
+		register: registerHotel,
+		handleSubmit: handleSubmitHotel,
+		formState: { errors: errorsHotel },
+	} = useForm();
+	const {
+		register: registerRoom,
+		handleSubmit: handleSubmitRoom,
+		formState: { errors: errorsRoom },
+	} = useForm();
 	const [hidden, setHidden] = useState(true);
 	const isOwner = localStorage.getItem("owner");
 	const makeOwner = async () => {
@@ -26,7 +38,6 @@ export default function AddProperty() {
 		}
 	};
 	const submitHotel = (data) => {
-		const userid = localStorage.getItem("userId");
 		const {
 			distanceFromCenter,
 			hotelAddress,
@@ -41,64 +52,74 @@ export default function AddProperty() {
 			hotelSubDescription,
 			hotelSubDescription_ar,
 			hotelType,
+			hotelRating,
 		} = data;
-		const hotelsJsonData = {
-			distanceFromCenter: JSON.stringify(distanceFromCenter),
-			hotelAddress: JSON.stringify(hotelAddress),
-			hotelAddress_ar: JSON.stringify(hotelAddress_ar),
-			hotelCity: JSON.stringify(hotelCity),
-			hotelCity_ar: JSON.stringify(hotelCity_ar),
-			hotelDescription: JSON.stringify(hotelDescription),
-			hotelDescription_ar: JSON.stringify(hotelDescription_ar),
-			hotelMainImage: JSON.stringify(hotelMainImage),
-			hotelName: JSON.stringify(hotelName),
-			hotelName_ar: JSON.stringify(hotelName_ar),
-			hotelSubDescription: JSON.stringify(hotelSubDescription),
-			hotelSubDescription_ar: JSON.stringify(hotelSubDescription_ar),
-			hotelType: JSON.stringify(hotelType),
-		};
 
-		console.log(hotelsJsonData);
+		const hotelsNewData = {
+			owner: userId,
+			distanceFromCenter: distanceFromCenter,
+			hotelAddress: hotelAddress,
+			hotelAddress_ar: hotelAddress_ar,
+			hotelCity: hotelCity,
+			hotelCity_ar: hotelCity_ar,
+			hotelDescription: hotelDescription,
+			hotelDescription_ar: hotelDescription_ar,
+			hotelMainImage: hotelMainImage,
+			hotelName: hotelName,
+			hotelName_ar: hotelName_ar,
+			hotelSubDescription: hotelSubDescription,
+			hotelSubDescription_ar: hotelSubDescription_ar,
+			hotelType: hotelType,
+			hotelRating: hotelRating,
+			approved: false,
+		};
+		console.log(hotelsNewData.hotelRating);
+		axiosInstance
+			.post("/hotels/owners", hotelsNewData)
+			.then((response) => {
+				console.log(response);
+				window.location.reload();
+			})
+			.catch((err) => {
+				console.log("error", err);
+			});
 	};
 
-	const roomsRef = useRef(null);
 	const showHide = () => {
 		setHidden(!hidden);
 	};
-	useEffect(() => {
-		if (!hidden) {
-			roomsRef.current.style.display = "block";
-		} else {
-			roomsRef.current.style.display = "none";
-		}
-	}, [hidden]);
 
 	const submitRooms = (data) => {
 		const { hotelId, roomType, bedType, guestNumber, price } = data;
-		const roomsJsonData = {
-			hotelId: JSON.stringify(hotelId),
-			roomType: JSON.stringify(roomType),
-			bedType: JSON.stringify(bedType),
-			guestNumber: JSON.stringify(guestNumber),
-			price: JSON.stringify(price),
+		const roomsNewData = {
+			hotelId: hotelId,
+			roomType: roomType,
+			bedType: bedType,
+			guestNumber: guestNumber,
+			price: price,
+			approved: false,
 		};
-		console.log(roomsJsonData);
+		axiosInstance
+			.post(`/rooms/owners/${hotelId}`, roomsNewData)
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
-	const hotelData = [
-		{
-			hotelId: 4,
-			hotelName: "Mostafa",
-		},
-		{
-			hotelId: 2,
-			hotelName: "Omar",
-		},
-		{
-			hotelId: 20,
-			hotelName: "Nada",
-		},
-	];
+	const [hotelsData, setHotelsData] = useState([]);
+	useEffect(() => {
+		axiosInstance
+			.get(`/hotels/owners/${userId}`)
+			.then((res) => {
+				setHotelsData(res.data.data);
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	}, [userId]);
 	return (
 		<>
 			<section className="container pt-5">
@@ -106,66 +127,101 @@ export default function AddProperty() {
 				<div className="my-2">
 					{isOwner === "true" ? (
 						<>
-							<h4>Add your Property</h4>
-							<form onSubmit={handleSubmit(submitHotel)}>
+							<h4>{t("addYourProperty")}</h4>
+							<form
+								className="my-2"
+								onSubmit={handleSubmitHotel(submitHotel)}
+							>
 								<div className="flex items-center gap-2">
 									<label
 										className=""
 										htmlFor="hotelMainImage"
 									>
-										Hotel Img
+										{t("propertyImg")}
 									</label>
 									<input
-										{...register("hotelMainImage")}
+										{...registerHotel("hotelMainImage", {
+											required: "true",
+										})}
 										type="text"
 										id="hotelMainImage"
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
 									/>
 								</div>
+								{errorsHotel.hotelMainImage && (
+									<p className="text-danger">
+										{t("imageLink")} {t("required")}
+									</p>
+								)}
 								<div className="flex items-center gap-2">
 									<label className="" htmlFor="hotelName">
-										Hotel Name
+										{t("propertyName")}
 									</label>
 									<input
-										{...register("hotelName")}
+										{...registerHotel("hotelName", {
+											required: true,
+										})}
 										type="text"
 										id="hotelName"
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
 									/>
 									<label className="" htmlFor="hotelName_ar">
-										Hotel Name AR
+										{t("propertyNameAR")}
 									</label>
 									<input
-										{...register("hotelName_ar")}
+										{...registerHotel("hotelName_ar", {
+											required: true,
+										})}
 										type="text"
 										id="hotelName_ar"
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
 									/>
 								</div>
+								{(errorsHotel.hotelName ||
+									errorsHotel.hotelName_ar) && (
+									<p className="text-danger">
+										{i18n.language === "ar"
+											? `${t("propertyNameAR")}`
+											: `${t("propertName")}`}{" "}
+										{t("required")}
+									</p>
+								)}
 								<div className="flex items-center gap-2">
 									<label className="" htmlFor="hotelType">
-										Hotel Type
+										{t("propertyType")}
 									</label>
 									<select
-										{...register("hotelType")}
+										{...registerHotel("hotelType", {
+											required: true,
+										})}
 										id="hotelType"
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
 									>
+										<option value="">
+											-- {t("selectPropertyType")} --
+										</option>
 										<option>hotel</option>
 										<option>apartment</option>
 										<option>resort</option>
 										<option>villa</option>
 									</select>
 								</div>
+								{errorsHotel.hotelType && (
+									<p className="text-danger">
+										{t("propertyType")} {t("required")}
+									</p>
+								)}
 								<div className="flex items-center gap-2">
 									<label
 										className=""
 										htmlFor="hotelDescription"
 									>
-										Hotel Description
+										{t("propertyDescription")}
 									</label>
 									<textarea
-										{...register("hotelDescription")}
+										{...registerHotel("hotelDescription", {
+											required: true,
+										})}
 										type="text"
 										id="hotelDescription"
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
@@ -174,24 +230,45 @@ export default function AddProperty() {
 										className=""
 										htmlFor="hotelDescription_ar"
 									>
-										Hotel Description AR
+										{t("propertyDescriptionAR")}
 									</label>
 									<textarea
-										{...register("hotelDescription_ar")}
+										{...registerHotel(
+											"hotelDescription_ar",
+											{
+												required: true,
+											}
+										)}
 										type="text"
 										id="hotelDescription_ar"
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
 									/>
 								</div>
+								{(errorsHotel.hotelDescription ||
+									errorsHotel.hotelDescription_ar) && (
+									<p className="text-danger">
+										{i18n.language === "ar"
+											? `${t("propertyDescriptionAR")}`
+											: `${t(
+													"propertyDescription"
+											  )}`}{" "}
+										{t("required")}
+									</p>
+								)}
 								<div className="flex items-center gap-2">
 									<label
 										className=""
 										htmlFor="hotelSubDescription"
 									>
-										Hotel Sub Description
+										{t("propertySubDescription")}
 									</label>
 									<textarea
-										{...register("hotelSubDescription")}
+										{...registerHotel(
+											"hotelSubDescription",
+											{
+												required: true,
+											}
+										)}
 										type="text"
 										id="hotelSubDescription"
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
@@ -200,24 +277,45 @@ export default function AddProperty() {
 										className=""
 										htmlFor="hotelSubDescription_ar"
 									>
-										Hotel Sub Description AR
+										{t("propertySubDescriptionAR")}
 									</label>
 									<textarea
-										{...register("hotelSubDescription_ar")}
+										{...registerHotel(
+											"hotelSubDescription_ar",
+											{
+												required: true,
+											}
+										)}
 										type="text"
 										id="hotelSubDescription_ar"
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
 									/>
 								</div>
+								{(errorsHotel.hotelSubDescription ||
+									errorsHotel.hotelSubDescription_ar) && (
+									<p className="text-danger">
+										{i18n.language === "ar"
+											? `${t("propertySubDescriptionAR")}`
+											: `${t(
+													"propertySubDescription"
+											  )}`}{" "}
+										{t("required")}
+									</p>
+								)}
 								<div className="flex items-center gap-2">
 									<label className="" htmlFor="hotelCity">
-										Hotel City
+										{t("propertyCity")}
 									</label>
 									<select
-										{...register("hotelCity")}
+										{...registerHotel("hotelCity", {
+											required: true,
+										})}
 										id="hotelCity"
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
 									>
+										<option value="">
+											-- {t("selectCity")} --
+										</option>
 										<option>cairo</option>
 										<option>hurghada</option>
 										<option>alexandria</option>
@@ -225,13 +323,18 @@ export default function AddProperty() {
 										<option>dahab</option>
 									</select>
 									<label className="" htmlFor="hotelCity_ar">
-										Hotel City AR
+										{t("propertyCityAR")}
 									</label>
 									<select
-										{...register("hotelCity_ar")}
-										id="hotelCity"
+										{...registerHotel("hotelCity_ar", {
+											required: true,
+										})}
+										id="hotelCity_ar"
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
 									>
+										<option value="">
+											-- {t("selectCity")} --
+										</option>
 										<option>القاهره</option>
 										<option>الغردقه</option>
 										<option>الاسكندريه</option>
@@ -239,12 +342,23 @@ export default function AddProperty() {
 										<option>دهب</option>
 									</select>
 								</div>
+								{(errorsHotel.hotelCity ||
+									errorsHotel.hotelCity_ar) && (
+									<p className="text-danger">
+										{i18n.language === "ar"
+											? `${t("propertyCityAR")}`
+											: `${t("propertyCity")}`}{" "}
+										{t("required")}
+									</p>
+								)}
 								<div className="flex items-center gap-2">
 									<label className="" htmlFor="hotelAddress">
-										Hotel Address
+										{t("propertyAddress")}
 									</label>
 									<input
-										{...register("hotelAddress")}
+										{...registerHotel("hotelAddress", {
+											required: true,
+										})}
 										type="text"
 										id="hotelAddress"
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
@@ -253,139 +367,238 @@ export default function AddProperty() {
 										className=""
 										htmlFor="hotelAddress_ar"
 									>
-										Hotel Address AR
+										{t("propertyAddressAR")}
 									</label>
 									<input
-										{...register("hotelAddress_ar")}
+										{...registerHotel("hotelAddress_ar", {
+											required: true,
+										})}
 										type="text"
 										id="hotelAddress_ar"
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
 									/>
 								</div>
+								{(errorsHotel.hotelAddress ||
+									errorsHotel.hotelAddress_ar) && (
+									<p className="text-danger">
+										{i18n.language === "ar"
+											? `${t("propertyAddressAR")}`
+											: `${t("propertyAddress")}`}{" "}
+										{t("required")}
+									</p>
+								)}
+								<div className="flex items-center gap-2">
+									<label className="" htmlFor="hotelStar">
+										{t("propertyRating")}
+									</label>
+									<input
+										{...registerHotel("hotelStar", {
+											required: true,
+										})}
+										type="number"
+										id="hotelStar"
+										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
+										min={1}
+										max={5}
+									/>
+								</div>
+								{errorsHotel.distanceFromCenter && (
+									<p className="text-danger">
+										{t("propertyRating")} {t("required")}
+									</p>
+								)}
 								<div className="flex items-center gap-2">
 									<label
 										className=""
 										htmlFor="distanceFromCenter"
 									>
-										Distance From Center
+										{t("propertyDistance")}
 									</label>
 									<input
-										{...register("distanceFromCenter")}
+										{...registerHotel(
+											"distanceFromCenter",
+											{
+												required: true,
+											}
+										)}
 										type="number"
 										id="distanceFromCenter"
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
+										min={1}
 									/>
 								</div>
+								{errorsHotel.distanceFromCenter && (
+									<p className="text-danger">
+										{t("propertyDistance")} {t("required")}
+									</p>
+								)}
+
 								<button
 									type="submit"
 									className="btn btn-primary"
 								>
-									Submit
+									{t("submit")}
 								</button>
 							</form>
+							{/* Add rooms */}
+							<div
+								className="mt-5 mb-2"
+								style={{ display: hidden ? "none" : "block" }}
+							>
+								<h4>{t("addYourRoom")}</h4>
+								<form onSubmit={handleSubmitRoom(submitRooms)}>
+									<div className="flex items-center gap-2">
+										<label className="" htmlFor="hotelId">
+											{i18n.language === "ar"
+												? `${t("propertyNameAR")}`
+												: `${t("propertyName")}`}
+										</label>
+										<select
+											{...registerRoom("hotelId", {
+												required: true,
+											})}
+											id="hotelId"
+											className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
+											placeholder="-- Select a hotel --"
+										>
+											<option value="">
+												-- {t("selectHotel")} --
+											</option>
+											{hotelsData.map((hotel) => (
+												<option
+													key={hotel._id}
+													value={hotel._id}
+												>
+													{hotel.hotelName}
+												</option>
+											))}
+										</select>
+									</div>
+									{errorsRoom.hotelId && (
+										<p className="text-danger">
+											{i18n.language === "ar"
+												? `${t("propertyNameAR")}`
+												: `${t("propertyName")}`}{" "}
+											{t("required")}
+										</p>
+									)}
+									<div className="flex items-center gap-2">
+										<label className="" htmlFor="roomType">
+											{t("roomType")}
+										</label>
+										<select
+											{...registerRoom("roomType", {
+												required: true,
+											})}
+											type="text"
+											id="roomType"
+											className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
+										>
+											<option value="">
+												-- {t("selectRoom")} --
+											</option>
+											<option>Single Room</option>
+											<option>Double Room</option>
+											<option>Triple Room</option>
+										</select>
+									</div>
+									{errorsRoom.roomType && (
+										<p className="text-danger">
+											{t("roomType")} {t("required")}
+										</p>
+									)}
+									<div className="flex items-center gap-2">
+										<label className="" htmlFor="bedType">
+											{t("bedType")}
+										</label>
+										<select
+											{...registerRoom("bedType", {
+												required: true,
+											})}
+											type="text"
+											id="bedType"
+											className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
+										>
+											<option value="">
+												-- {t("selectBed")} --
+											</option>
+											<option>Single Bed</option>
+											<option>Double Beds</option>
+										</select>
+									</div>
+									{errorsRoom.bedType && (
+										<p className="text-danger">
+											{t("bedType")} {t("required")}
+										</p>
+									)}
+									<div className="flex items-center gap-2">
+										<label
+											className=""
+											htmlFor="guestNumber"
+										>
+											{t("guestNumber")}
+										</label>
+										<input
+											{...registerRoom("guestNumber", {
+												required: true,
+											})}
+											type="number"
+											id="guestNumber"
+											className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
+										/>
+									</div>
+									{errorsRoom.guestNumber && (
+										<p className="text-danger">
+											{t("guestNumber")} {t("required")}
+										</p>
+									)}
+									<div className="flex items-center gap-2">
+										<label className="" htmlFor="price">
+											{t("roomPrice")}
+										</label>
+										<input
+											{...registerRoom("price", {
+												required: true,
+											})}
+											type="number"
+											id="price"
+											className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
+										/>
+									</div>
+									{errorsRoom.price && (
+										<p className="text-danger">
+											{t("roomPrice")} {t("required")}
+										</p>
+									)}
+									<button
+										type="submit"
+										className="btn btn-primary"
+									>
+										{t("submit")}
+									</button>
+								</form>
+							</div>
+							<button
+								className="btn btn-primary"
+								onClick={() => showHide()}
+							>
+								{hidden
+									? `${t("showRoom")}`
+									: `${t("hideRoom")}`}
+							</button>
 						</>
 					) : (
 						<>
-							<h4>Want to be an owner?</h4>
+							<h4>{t("wantOwnership")}</h4>
 							<button
 								onClick={() => makeOwner()}
 								className="btn btn-primary"
 							>
-								Click here
+								{t("clickHere")}
 							</button>
 						</>
 					)}
 				</div>
-
-				{/* Add rooms */}
-				<div
-					className="mt-5 mb-2"
-					ref={roomsRef}
-					style={{ display: "none" }}
-				>
-					<form
-						onSubmit={handleSubmit(submitRooms)}
-						className="grid grid-cols-2 gap-2"
-					>
-						<div className="flex items-center gap-2">
-							<label className="" htmlFor="hotelId">
-								Hotel Name
-							</label>
-							<select
-								{...register("hotelId")}
-								type="text"
-								id="hotelId"
-								className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
-							>
-								{hotelData.map((hotel) => (
-									<option
-										key={hotel.hotelId}
-										value={hotel.hotelId}
-									>
-										{hotel.hotelName}
-									</option>
-								))}
-							</select>
-						</div>
-						<div className="flex items-center gap-2">
-							<label className="" htmlFor="roomType">
-								Room Type
-							</label>
-							<select
-								{...register("roomType")}
-								type="text"
-								id="roomType"
-								className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
-							>
-								<option>Single Room</option>
-								<option>Double Room</option>
-								<option>Triple Room</option>
-							</select>
-						</div>
-						<div className="flex items-center gap-2">
-							<label className="" htmlFor="bedType">
-								Bed Type
-							</label>
-							<select
-								{...register("bedType")}
-								type="text"
-								id="bedType"
-								className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
-							>
-								<option>Single Bed</option>
-								<option>Double Beds</option>
-							</select>
-						</div>
-						<div className="flex items-center gap-2">
-							<label className="" htmlFor="guestNumber">
-								Guest Number
-							</label>
-							<input
-								{...register("guestNumber")}
-								type="number"
-								id="guestNumber"
-								className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
-							/>
-						</div>
-						<div className="flex items-center gap-2">
-							<label className="" htmlFor="price">
-								Room Price
-							</label>
-							<input
-								{...register("price")}
-								type="number"
-								id="price"
-								className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
-							/>
-						</div>
-						<button type="submit" className="btn btn-primary">
-							Submit
-						</button>
-					</form>
-				</div>
-				<button className="btn btn-primary" onClick={() => showHide()}>
-					Add room
-				</button>
 			</section>
 		</>
 	);

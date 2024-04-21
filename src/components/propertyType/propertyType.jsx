@@ -2,16 +2,15 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import { useTranslation } from "react-i18next";
 
-
 const PropertyType = () => {
 	const { t, i18n } = useTranslation();
 
 	return (
 		<>
-			<Container className="pt-10 " style={{ maxWidth: "1100px" }}>
+			<Container className="pt-10 ">
 				<div>
 					<h3 style={{ fontWeight: "bold", fontSize: "25px" }}>
-						{t('property type')}
+						{t("property type")}
 					</h3>
 				</div>
 				<Container className="md:flex space-x-4 pt-3 ">
@@ -25,7 +24,7 @@ const PropertyType = () => {
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
-							<Card.Title>{t('Hotels')}</Card.Title>
+							<Card.Title>{t("Hotels")}</Card.Title>
 						</div>
 					</Card>
 
@@ -39,7 +38,7 @@ const PropertyType = () => {
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
-							<Card.Title>{t('Apartments')}</Card.Title>
+							<Card.Title>{t("Apartments")}</Card.Title>
 						</div>
 					</Card>
 
@@ -53,7 +52,7 @@ const PropertyType = () => {
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
-							<Card.Title>{t('Resorts')}</Card.Title>
+							<Card.Title>{t("Resorts")}</Card.Title>
 						</div>
 					</Card>
 
@@ -67,7 +66,7 @@ const PropertyType = () => {
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
-							<Card.Title>{t('Villas')}</Card.Title>
+							<Card.Title>{t("Villas")}</Card.Title>
 						</div>
 					</Card>
 				</Container>

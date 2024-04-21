@@ -8,7 +8,7 @@ const StayesHeader = () => {
 	return (
 		<>
 			<Container fluid className="bg-blue-900 pt-5 pb-10">
-				<Container style={{ maxWidth: "1100px" }}>
+				<Container>
 					<h1
 						style={{
 							fontWeight: "bold",
