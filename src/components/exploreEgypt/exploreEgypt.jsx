@@ -12,13 +12,13 @@ const ExploreEgypt = () => {
 	};
 	return (
 		<>
-			<Container className="pt-10 " style={{ maxWidth: "1100px" }}>
+			<Container className="pt-10 ">
 				<div>
 					<h3 style={{ fontWeight: "bold", fontSize: "25px" }}>
-						{t('Explore')}
+						{t("Explore")}
 					</h3>
 					<h5 style={{ fontSize: "17px", color: "#a2a2a2" }}>
-						{t('popular destinations')}
+						{t("popular destinations")}
 					</h5>
 				</div>
 				<Container className="md:flex space-x-4 pt-3 grid grid-cols-2">
@@ -33,9 +33,9 @@ const ExploreEgypt = () => {
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
-							<Card.Title>{t('Alexandria')} </Card.Title>
+							<Card.Title>{t("Alexandria")} </Card.Title>
 							<Card.Text className="text-muted">
-								70{t('properties')}
+								70{t("properties")}
 							</Card.Text>
 						</div>
 					</Card>
@@ -52,9 +52,9 @@ const ExploreEgypt = () => {
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
-							<Card.Title>{t('Hurghada')}</Card.Title>
+							<Card.Title>{t("Hurghada")}</Card.Title>
 							<Card.Text className="text-muted">
-								150 {t('properties')}
+								150 {t("properties")}
 							</Card.Text>
 						</div>
 					</Card>
@@ -70,9 +70,9 @@ const ExploreEgypt = () => {
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
-							<Card.Title>{t('Cairo')}</Card.Title>
+							<Card.Title>{t("Cairo")}</Card.Title>
 							<Card.Text className="text-muted">
-								200 {t('properties')}
+								200 {t("properties")}
 							</Card.Text>
 						</div>
 					</Card>
@@ -88,9 +88,9 @@ const ExploreEgypt = () => {
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
-							<Card.Title>{t('Sharm El Sheikh')}</Card.Title>
+							<Card.Title>{t("Sharm El Sheikh")}</Card.Title>
 							<Card.Text className="text-muted">
-								180 {t('properties')}
+								180 {t("properties")}
 							</Card.Text>
 						</div>
 					</Card>
@@ -106,9 +106,9 @@ const ExploreEgypt = () => {
 							style={{ borderRadius: "5px" }}
 						/>
 						<div className="pt-2">
-							<Card.Title>{t('Dahab')}</Card.Title>
+							<Card.Title>{t("Dahab")}</Card.Title>
 							<Card.Text className="text-muted">
-								50 {t('properties')}
+								50 {t("properties")}
 							</Card.Text>
 						</div>
 					</Card>

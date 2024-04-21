@@ -1,7 +1,7 @@
 import SearchForm from "../../components/searchForm/searchForm";
 import { TiTick } from "react-icons/ti";
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState , useRef } from "react";
 import { getAllHotels} from "../../services/hotels";
 import { useTranslation } from "react-i18next";
 
@@ -10,38 +10,112 @@ import { useTranslation } from "react-i18next";
 const Hotels = () => {
     const { t, i18n } = useTranslation();
     const [hotels, setHotels] = useState([]); 
+    const [selectedStars , setSelectedStars] = useState([])
+    const [selectedType , setSelectedType] = useState([])
 
     const navigate = useNavigate()
-
     const location = useLocation();
     const { destination:city, date, options } = location.state|| {};
-
+    var stars = []
     useEffect(() => {
+        const hotelRating = selectedStars
+        const hotelTypes = selectedType
         const getHotelsByCity = async () => {
             try {
                 if(!city) {
                     navigate('/');
                     return;
                 }
-                const hotelsData = await getAllHotels(city);
+                const hotelsData = await getAllHotels(city,hotelRating,hotelTypes);
                 setHotels(hotelsData);
             } catch(err) {
                 console.log(err);
             }
         };
         getHotelsByCity();
-    }, [city, navigate]);
+        console.log(selectedStars);
+    }, [city, navigate ,selectedStars,selectedType]);
 
     const handleGetRooms = (hotelId) => {
         navigate(`/rooms/${hotelId}`, { state: { destination:city, date, options } });
     }
 
+
+    const handleStarFilter = (event)=>{
+        const starRating = event.target.value;
+        const checkbox = event.target;
+        if(checkbox.checked) {
+            if(!selectedStars.includes(starRating)){
+                setSelectedStars(prevStars => [...prevStars, +starRating]);
+            }
+        } else {
+            setSelectedStars(selectedStars.filter(star => star !== +starRating));
+            }
+            return selectedStars
+        }
+        
+        const handleTypeFilter = (event)=>{
+            const hotelType = event.target.value;
+            const checkbox = event.target;
+            if(checkbox.checked) {
+                if(!selectedType.includes(hotelType)){
+                    setSelectedType(prevTypes => [...prevTypes, hotelType]);
+                }
+            } else {
+                setSelectedType(selectedType.filter(type => type !== hotelType));
+                }
+                return selectedType
+            }
+
+
     return (
-        <div className="relative">
+        <div>
             <div className="bg-blue-900 mb-5">
                 <SearchForm/>
             </div>
-            {hotels.map((hotel) => (
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-4 pt-5">
+                    <div className="rounded-lg border border-slate-300 p-5 h-fit sticky top-10 ">
+                        <div className="space-y-5">
+                        <h3 className="text-lg font-semibold border-b border-slate-300 pb-5">Filter By</h3>
+                        <div className="starRating">
+                        <div className="border-b border-slate-300 pb-5">
+                        <h4 className="text-md font-semibold mb-2">Property Rating</h4>
+                        {["5", "4", "3", "2", "1"].map((star) => (
+                        <label className="flex items-center space-x-2">
+                        <input
+                        type="checkbox"
+                        className="rounded"
+                        value={star}
+                        onChange={handleStarFilter}
+                        />
+                        <span>{star} Stars</span>
+                        </label>
+                        ))}
+                    </div>
+                </div>
+                <div className="hotelType">
+                    <div >
+                    <h4 className="text-md font-semibold mb-2">Hotel Type</h4>
+                    {["hotel", "apartment", "resort", "villa"].map((hotelType) => (
+                    <label className="flex items-center space-x-2">
+                    <input
+                    type="checkbox"
+                    className="rounded"
+                    value={hotelType}
+                    onChange={handleTypeFilter}
+                    />
+                    <span>{hotelType}</span>
+                    </label>
+                    ))}
+                    </div>
+                </div>
+        </div>
+      </div>
+                    </div>
+                    <div className="col-md-8">
+                    {hotels.map((hotel) => (
                 <div key={hotel._id} className="flex justify-between pt-5 max-w-[990px] mx-auto">
                     <div className="mt-1 mb-1">
                         <div className="flex border rounded-md p-3 h-auto w-full hover:bg-blue-200 hover:shadow-md">
@@ -65,10 +139,10 @@ const Hotels = () => {
                                 <div className="flex space-x-4 mb-2">
                                     <div className="">
                                         <p className="font-semibold p-0 m-1">{t('good')}</p>
-                                        <p className="p-0 m-0">{t('reviews', { count: 50 })}</p>
+                                        <p className="p-0 m-0">{t('reviews')} { hotel.review } {t('Clients')} </p>
                                     </div>
                                     <div>
-                                        <div className="p-2 mt-1 bg-blue-800 text-white rounded-lg">7.9</div>
+                                        <div className="p-3 mt-1 bg-blue-800 text-white rounded-lg">{hotel.hotelRating}</div>
                                     </div>
                                 </div>
                                 <div>
@@ -79,6 +153,10 @@ const Hotels = () => {
                     </div>
                 </div>
             ))}
+                    </div>
+                </div>
+            </div>
+
         </div>
     );
 }

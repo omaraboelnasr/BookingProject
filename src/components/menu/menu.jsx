@@ -12,9 +12,9 @@ const Menu = () => {
 	return (
 		<>
 			<Container fluid className="bg-blue-900   pb-4">
-				<Container style={{ maxWidth: "1100px" }}>
+				<Container>
 					<Row>
-						<Col lg="2"  md="2"  sm="2">
+						<Col lg="2" md="2" sm="2">
 							<NavLink
 								to="/hotels"
 								className={({ isActive }) =>
@@ -29,7 +29,7 @@ const Menu = () => {
 								<span className="ms-2">{t("stays")}</span>
 							</NavLink>
 						</Col>
-						<Col lg="2"  md="2"  sm="2">
+						<Col lg="2" md="2" sm="2">
 							<NavLink
 								to="/searchflights"
 								className={({ isActive }) =>
@@ -44,7 +44,7 @@ const Menu = () => {
 								<span className="ms-2">{t("flights")}</span>
 							</NavLink>
 						</Col>
-						<Col lg="2"  md="2"  sm="2">
+						<Col lg="2" md="2" sm="2">
 							<NavLink
 								to="/carrental"
 								className={({ isActive }) =>
@@ -59,7 +59,7 @@ const Menu = () => {
 								<span className="ms-2">{t("carrentals")}</span>
 							</NavLink>
 						</Col>
-						<Col lg="2"  md="2"  sm="2" className="mb-7">
+						<Col lg="2" md="2" sm="2" className="mb-7">
 							<NavLink
 								to="/attractions"
 								className={({ isActive }) =>
@@ -71,10 +71,12 @@ const Menu = () => {
 								}
 							>
 								<MdOutlineAttractions className="fs-4" />
-								<span className="ms-2 ">{t("attractions")}</span>
+								<span className="ms-2 ">
+									{t("attractions")}
+								</span>
 							</NavLink>
 						</Col>
-						<Col lg="2"  md="2"  sm="2">
+						<Col lg="2" md="2" sm="2">
 							<NavLink
 								to="/airporttaxis"
 								className={({ isActive }) =>
