@@ -6,7 +6,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 const BookingCard = () => {
 	const initialOptions = {
 		"client-id":
-			"AVtmFkmVPYI4lI4M7XlEiVk83pkwMRFtHwEjzO1JnJjV_LYKLCMyoshbOpBanmwwVcO3hMDKKqotU-5P",
+			"AdapdEY6ebdY0xF1ndyqv_xZLIqAoKRdUyDjfMTjsFbb5o15rXKKdcC-odnUAqw7uVBToTvx9T-UxfZ3",
 		"enable-funding": "paypal",
 		"disable-funding": "paylater,venmo,card",
 		"data-sdk-integration-source": "integrationbuilder_sc",

@@ -89,13 +89,12 @@ const Rooms = () => {
 	return (
 		<>
 			<Container
-				style={{ maxWidth: "1000px" }}
 				className="pt-20 flex flex-col justify-around"
 			>
 				<Container>
 					<Row>
 						<Col>
-							<div className="flex justify-between">
+							<div className="flex flex-col flex-md-row justify-between">
 								<div className="flex">
 									<h2>
 										{i18n.language === "ar"
@@ -104,9 +103,8 @@ const Rooms = () => {
 									</h2>
 									<Rating stars={hotel.hotelRating} />
 								</div>
-								<div className="flex space-x-4 ">
+								<div className="flex gap-x-2 items-center">
 									<div>
-										{/* <p className="p-0 m-0">{t('Good')}</p> */}
 										<p className="p-0 m-0">
 											{hotel.review} {t("reviews")}
 										</p>
