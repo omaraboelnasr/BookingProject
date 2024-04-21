@@ -1,7 +1,7 @@
 import SearchForm from "../../components/searchForm/searchForm";
 import { TiTick } from "react-icons/ti";
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState , useRef } from "react";
 import { getAllHotels} from "../../services/hotels";
 import { useTranslation } from "react-i18next";
 
@@ -11,36 +11,63 @@ const Hotels = () => {
     const { t, i18n } = useTranslation();
     const [hotels, setHotels] = useState([]); 
     const [selectedStars , setSelectedStars] = useState([])
-    const navigate = useNavigate()
+    const [selectedType , setSelectedType] = useState([])
 
+    const navigate = useNavigate()
     const location = useLocation();
     const { destination:city, date, options } = location.state|| {};
-
+    var stars = []
     useEffect(() => {
+        const hotelRating = selectedStars
+        const hotelTypes = selectedType
         const getHotelsByCity = async () => {
             try {
                 if(!city) {
                     navigate('/');
                     return;
                 }
-                const hotelsData = await getAllHotels(city);
+                const hotelsData = await getAllHotels(city,hotelRating,hotelTypes);
                 setHotels(hotelsData);
             } catch(err) {
                 console.log(err);
             }
         };
         getHotelsByCity();
-    }, [city, navigate]);
+        console.log(selectedStars);
+    }, [city, navigate ,selectedStars,selectedType]);
 
     const handleGetRooms = (hotelId) => {
         navigate(`/rooms/${hotelId}`, { state: { destination:city, date, options } });
     }
 
+
     const handleStarFilter = (event)=>{
         const starRating = event.target.value;
-            const filterStar = hotels.filter((hotel)=> hotel.hotelRating == starRating)
-            setHotels(filterStar);
-    }
+        const checkbox = event.target;
+        if(checkbox.checked) {
+            if(!selectedStars.includes(starRating)){
+                setSelectedStars(prevStars => [...prevStars, +starRating]);
+            }
+        } else {
+            setSelectedStars(selectedStars.filter(star => star !== +starRating));
+            }
+            return selectedStars
+        }
+        
+        const handleTypeFilter = (event)=>{
+            const hotelType = event.target.value;
+            const checkbox = event.target;
+            if(checkbox.checked) {
+                if(!selectedType.includes(hotelType)){
+                    setSelectedType(prevTypes => [...prevTypes, hotelType]);
+                }
+            } else {
+                setSelectedType(selectedType.filter(type => type !== hotelType));
+                }
+                return selectedType
+            }
+
+
     return (
         <div>
             <div className="bg-blue-900 mb-5">
@@ -77,6 +104,7 @@ const Hotels = () => {
                     type="checkbox"
                     className="rounded"
                     value={hotelType}
+                    onChange={handleTypeFilter}
                     />
                     <span>{hotelType}</span>
                     </label>
