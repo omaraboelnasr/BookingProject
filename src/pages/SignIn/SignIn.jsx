@@ -77,10 +77,10 @@ const SignIn = () => {
 										{i18n.resolvedLanguage === "en"
 											? `${t("invalid")} ${t(
 													"emailAddress"
-											  )}`
+											)}`
 											: `${t("emailAddress")} ${t(
 													"invalid"
-											  )}`}
+											)}`}
 									</p>
 								)}
 								<label
