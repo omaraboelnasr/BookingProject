@@ -68,6 +68,7 @@
 	"propertyAddress": "عنوان العقار باللغة الانجليزية",
 	"propertyAddressAR": "عنوان العقار",
 	"propertyDistance": "مسافة العقار من وسط المدينة",
+	"propertyRating": "تقييم العقار",
 	"showRoom": "اظهر تسجيل غرفة",
 	"hideRoom": "اخفي تسجيل غرفة",
 	"addYourRoom": "اضف غرفة للعقار",

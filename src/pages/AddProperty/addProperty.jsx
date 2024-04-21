@@ -52,6 +52,7 @@ export default function AddProperty() {
 			hotelSubDescription,
 			hotelSubDescription_ar,
 			hotelType,
+			hotelRating,
 		} = data;
 
 		const hotelsNewData = {
@@ -69,8 +70,10 @@ export default function AddProperty() {
 			hotelSubDescription: hotelSubDescription,
 			hotelSubDescription_ar: hotelSubDescription_ar,
 			hotelType: hotelType,
+			hotelRating: hotelRating,
 			approved: false,
 		};
+		console.log(hotelsNewData.hotelRating);
 		axiosInstance
 			.post("/hotels/owners", hotelsNewData)
 			.then((response) => {
@@ -385,6 +388,26 @@ export default function AddProperty() {
 									</p>
 								)}
 								<div className="flex items-center gap-2">
+									<label className="" htmlFor="hotelStar">
+										{t("propertyRating")}
+									</label>
+									<input
+										{...registerHotel("hotelStar", {
+											required: true,
+										})}
+										type="number"
+										id="hotelStar"
+										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
+										min={1}
+										max={5}
+									/>
+								</div>
+								{errorsHotel.distanceFromCenter && (
+									<p className="text-danger">
+										{t("propertyRating")} {t("required")}
+									</p>
+								)}
+								<div className="flex items-center gap-2">
 									<label
 										className=""
 										htmlFor="distanceFromCenter"
@@ -401,6 +424,7 @@ export default function AddProperty() {
 										type="number"
 										id="distanceFromCenter"
 										className="flex-grow-1 px-3 border border-slate-400 rounded-md shadow-sm placeholder-slate-400 bg-transparent py-2 pl-2 text-gray-900  sm:text-sm sm:leading-6 focus:outline-none  focus:ring-2 focus:ring-blue-600 my-1.5"
+										min={1}
 									/>
 								</div>
 								{errorsHotel.distanceFromCenter && (
@@ -408,6 +432,7 @@ export default function AddProperty() {
 										{t("propertyDistance")} {t("required")}
 									</p>
 								)}
+
 								<button
 									type="submit"
 									className="btn btn-primary"
