@@ -1,8 +1,8 @@
 import axiosInstance from "../axios";
 
-export const getAllHotels = async (city) => {
+export const getAllHotels = async (city,hotelRating,hotelTypes) => {
     try {
-      const response = await axiosInstance.get(`/hotels`,{params:{city}});
+      const response = await axiosInstance.get(`/hotels`,{params:{city,hotelRating,hotelTypes}});
       return response.data.data;
     } catch (error) {
       throw error;
