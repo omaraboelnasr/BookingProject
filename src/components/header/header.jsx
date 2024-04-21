@@ -84,7 +84,7 @@ const Header = () => {
 	return (
 		<>
 			<Navbar className="bg-blue-900 " data-bs-theme="dark">
-				<Container className="pb-9" style={{ maxWidth: "1100px" }}>
+				<Container className="pb-9 flex flex-col flex-md-row">
 					<Navbar.Brand
 						href="/"
 						style={{ fontWeight: "bold", fontSize: "25px" }}
@@ -92,7 +92,7 @@ const Header = () => {
 						Booking.com
 					</Navbar.Brand>
 
-					<div className="flex justify-center items-center gap-3">
+					<div className="flex flex-col flex-md-row justify-center items-center gap-3">
 						<DropdownButton
 							title={lngs[i18n.language].nativeName}
 							id="dropdown-basic"

@@ -1,23 +1,23 @@
-.menuButtonActive{
-    padding: 10px;
-    color: white;
-    border: 1px solid white;
-    border-radius: 30px;
-    background-color: rgba(255, 255, 255, 0.117);
-    text-decoration: none;
+.menuButtonActive {
+	padding: 10px;
+	color: white;
+	border: 1px solid white;
+	border-radius: 30px;
+	background-color: rgba(255, 255, 255, 0.117);
+	text-decoration: none;
 }
 
-.menuButton{
-    padding: 10px;
-    color: white;
-    border-radius: 30px;
-    text-decoration: none;
+.menuButton {
+	padding: 10px;
+	color: white;
+	border-radius: 30px;
+	text-decoration: none;
 }
 
-.menuButton:hover{
-    padding: 10px;
-    color: white;
-    border-radius: 30px;
-    border: 0px solid white;
-    background-color: rgba(255, 255, 255, 0.117);
+.menuButton:hover {
+	padding: 10px;
+	color: white;
+	border-radius: 30px;
+	border: 0px solid white;
+	background-color: rgba(255, 255, 255, 0.117);
 }

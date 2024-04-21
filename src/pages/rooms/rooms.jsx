@@ -27,7 +27,7 @@ import { getHotel } from "../../services/hotels";
 import { useEffect } from "react";
 import { listRooms } from "../../services/rooms";
 import { useTranslation } from "react-i18next";
-import Rating from "../rating"
+import Rating from "../rating";
 
 const Rooms = () => {
 	const [hotel, setHotel] = useState([]);
@@ -41,6 +41,7 @@ const Rooms = () => {
 	const getTheHotel = async () => {
 		try {
 			var hotelData = await getHotel(id);
+
 			setHotel(hotelData);
 		} catch (err) {
 			console.log(err);
@@ -80,6 +81,7 @@ const Rooms = () => {
 				state: {
 					rooms: selectedRooms,
 					date: location.state.date,
+					img: hotel.hotelMainImage,
 				},
 			});
 		}
@@ -95,13 +97,19 @@ const Rooms = () => {
 						<Col>
 							<div className="flex justify-between">
 								<div className="flex">
-									<h2>{i18n.language === 'ar' ? hotel.hotelName_ar : hotel.hotelName}</h2>
-									<Rating stars={hotel.hotelRating}  />
+									<h2>
+										{i18n.language === "ar"
+											? hotel.hotelName_ar
+											: hotel.hotelName}
+									</h2>
+									<Rating stars={hotel.hotelRating} />
 								</div>
 								<div className="flex space-x-4 ">
 									<div>
 										{/* <p className="p-0 m-0">{t('Good')}</p> */}
-										<p className="p-0 m-0">{hotel.review} {t('reviews')}</p>
+										<p className="p-0 m-0">
+											{hotel.review} {t("reviews")}
+										</p>
 									</div>
 									<div>
 										<Badge
@@ -115,110 +123,81 @@ const Rooms = () => {
 							</div>
 							<div className="flex mt-2">
 								<MdLocationPin className="fs-3 text-blue-900" />
-								<p>{i18n.language === 'ar' ? hotel.hotelAddress_ar : hotel.hotelAddress}</p>
+								<p>
+									{i18n.language === "ar"
+										? hotel.hotelAddress_ar
+										: hotel.hotelAddress}
+								</p>
 							</div>
 						</Col>
 					</Row>
 					<Row>
 						<Col className="pt-3">
-							<Carousel>
-								<Carousel.Item>
-									<img
-										className="d-block w-100"
-										src="../../../public/images/hotel1.jpeg"
-										alt="Third slide"
-										style={{
-											width: "800px",
-											height: "500px",
-										}}
-									/>
-								</Carousel.Item>
-								<Carousel.Item>
-									<img
-										className="d-block w-100"
-										src="../../../public/images/hotel2.jpg"
-										alt="Third slide"
-										style={{
-											width: "800px",
-											height: "500px",
-										}}
-									/>
-								</Carousel.Item>
-								<Carousel.Item>
-									<img
-										className="d-block w-100"
-										src="../../../public/images/hotel3.jpg"
-										alt="Third slide"
-										style={{
-											width: "800px",
-											height: "500px",
-										}}
-									/>
-								</Carousel.Item>
-								<Carousel.Item>
-									<img
-										className="d-block w-100"
-										src="../../../public/images/hotel3.jpg"
-										alt="Third slide"
-										style={{
-											width: "800px",
-											height: "500px",
-										}}
-									/>
-								</Carousel.Item>
-							</Carousel>
+							<img
+								className="d-block w-100"
+								src={hotel.hotelMainImage}
+								alt="Third slide"
+								style={{
+									width: "800px",
+									height: "500px",
+								}}
+							/>
 						</Col>
 					</Row>
 					<Row>
 						<Col>
 							<div className="pt-4">
-								<h5>{t('description')}</h5>
-								<p>{i18n.language === 'ar' ? hotel.hotelDescription_ar : hotel.hotelDescription}</p>
+								<h5>{t("description")}</h5>
+								<p>
+									{i18n.language === "ar"
+										? hotel.hotelDescription_ar
+										: hotel.hotelDescription}
+								</p>
 							</div>
 						</Col>
 					</Row>
 					<Row>
 						<Col>
 							<div className="pt-4">
-								<h5>{t('Most popular facilities')}</h5>
+								<h5>{t("Most popular facilities")}</h5>
 								<div className="flex flex-wrap">
 									<p className="me-3">
 										{" "}
 										<MdOutlineAirportShuttle className="inline-block me-1 text-green-500 fs-4" />
-										{t('Airport shuttle (free)')}
+										{t("Airport shuttle (free)")}
 									</p>
 									<p className="me-3">
 										<LiaSmokingBanSolid className="inline-block me-1 text-green-500 fs-4" />
-										{t('Non-smoking rooms')}
+										{t("Non-smoking rooms")}
 									</p>
 									<p className="me-3">
 										<MdOutlineRoomService className="inline-block me-1 text-green-500 fs-4" />
-										{t('Room service')}
+										{t("Room service")}
 									</p>
 									<p className="me-3">
 										{" "}
 										<RiRestaurantLine className="inline-block me-1 text-green-500 fs-4" />
-										{t('Restaurant')}
+										{t("Restaurant")}
 									</p>
 									<p className="me-3">
 										<GrWifi className="inline-block me-1 text-green-500 fs-4" />
-										{t('Free WiFi')}
+										{t("Free WiFi")}
 									</p>
 									<p className="me-3">
 										<BiDrink className="inline-block me-1 text-green-500 fs-4" />
-										{t('Bar')}
+										{t("Bar")}
 									</p>
 									<p className="me-3">
 										<MdBalcony className="inline-block me-1 text-green-500 fs-4" />
-										{t('Terrace')}
+										{t("Terrace")}
 									</p>
 									<p className="me-3">
 										<MdOutlineCoffeeMaker className="inline-block me-1 text-green-500 fs-4" />
-										{t('Tea/coffee maker in all rooms')}
+										{t("Tea/coffee maker in all rooms")}
 									</p>
 									<p className="me-3">
 										<MdOutlineFreeBreakfast className="inline-block me-1 text-green-500 fs-4" />
-										{t('Breakfast')}
+										{t("Breakfast")}
 									</p>
 								</div>
 							</div>

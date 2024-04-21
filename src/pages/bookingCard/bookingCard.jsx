@@ -13,7 +13,7 @@ const BookingCard = () => {
 	};
 	// const [message, setMessage] = useState("");
 	const location = useLocation();
-	const { rooms, date } = location.state;
+	const { rooms, date, img } = location.state;
 	const totalPrice = location.state.rooms.reduce((total, room) => {
 		return total + room.quantity * room.room.price;
 	}, 0);
@@ -86,7 +86,7 @@ const BookingCard = () => {
 							>
 								<img
 									className="m-2 h-24 w-28 rounded-md border object-cover object-center"
-									src="https://images.unsplash.com/flagged/photo-1556637640-2c80d3201be8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+									src={img}
 									alt=""
 								/>
 								<div className="flex w-full flex-col px-4 py-4">
