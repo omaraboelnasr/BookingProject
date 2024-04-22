@@ -38,7 +38,6 @@ const Hotels = () => {
 			}
 		};
 		getHotelsByCity();
-		console.log(selectedStars);
 	}, [city, navigate, selectedStars, selectedType]);
 
 	const handleGetRooms = (hotelId) => {
