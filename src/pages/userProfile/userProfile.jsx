@@ -1,12 +1,14 @@
-
-import React, { useState, useEffect, useCallback } from 'react';
-import { deleteUserData, getUserData, updateUserData } from '../../services/user';
-
+import React, { useState, useEffect, useCallback } from "react";
+import {
+	deleteUserData,
+	getUserData,
+	updateUserData,
+} from "../../services/user";
 
 const UserProfile = () => {
- 	const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+	const [user, setUser] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
 
 	const [showInputs, setShowInputs] = useState(false);
 	const [showNameInputs, setShowNameInputs] = useState(false);
@@ -17,7 +19,7 @@ const UserProfile = () => {
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
 	const [inputPasswordValue, setInputPasswordValue] = useState("");
-	
+
 	const [newFirstName, setnewFirstName] = useState("");
 	const [newLastName, setNewLastName] = useState("");
 	const [newEmail, setNewEmail] = useState("");
@@ -29,46 +31,54 @@ const UserProfile = () => {
 	const [month, setMonth] = useState("");
 	const [year, setYear] = useState("");
 
-	const userId = localStorage.getItem('userId')
+	const userId = localStorage.getItem("userId");
 
 	const fetchUserData = async () => {
 		try {
 			const userData = await getUserData();
 			setUser(userData);
-			userData.firstName ? setFirstName(userData.firstName) : setFirstName("")
-			userData.lastName ? setLastName(userData.lastName) : setLastName("")
-			userData.dob ?setBirthDate(userData.dob) : setBirthDate("")
-			userData.email ?setEmail(userData.email) : setEmail("")
+			userData.firstName
+				? setFirstName(userData.firstName)
+				: setFirstName("");
+			userData.lastName
+				? setLastName(userData.lastName)
+				: setLastName("");
+			userData.dob ? setBirthDate(userData.dob) : setBirthDate("");
+			userData.email ? setEmail(userData.email) : setEmail("");
 		} catch (error) {
 			setError(error);
 		} finally {
 			setLoading(false);
 		}
 	};
-	
-    useEffect(() => {
-        fetchUserData();
-    },[]);
 
+	useEffect(() => {
+		fetchUserData();
+	}, []);
 
-    const handleUpdateUserData = useCallback(async (updatedData) => {
-        try {
-            const updatedUserData = await updateUserData(userId, updatedData);
-            setUser(updatedUserData);
-        } catch (error) {
-            setError(error);
-        }
-    }, [userId]);
+	const handleUpdateUserData = useCallback(
+		async (updatedData) => {
+			try {
+				const updatedUserData = await updateUserData(
+					userId,
+					updatedData
+				);
+				setUser(updatedUserData);
+			} catch (error) {
+				setError(error);
+			}
+		},
+		[userId]
+	);
 
-    const handleDeleteUserData = useCallback(async () => {
-        try {
-            await deleteUserData(userId);
-            setUser(null);
-        } catch (error) {
-            setError(error);
-        }
-    }, [userId]);
-
+	const handleDeleteUserData = useCallback(async () => {
+		try {
+			await deleteUserData(userId);
+			setUser(null);
+		} catch (error) {
+			setError(error);
+		}
+	}, [userId]);
 
 	const handleEditClick = (field) => {
 		switch (field) {
@@ -81,7 +91,7 @@ const UserProfile = () => {
 				setShowEmailInputs(true);
 				setEmail(newEmail);
 				break;
-		
+
 			case "dob":
 				setShowDOBInputs(true);
 				setBirthDate(birthDate);
@@ -103,25 +113,21 @@ const UserProfile = () => {
 		setEmail(e.target.value);
 	};
 
-	const handleInputPasswordChange = (e) => {
-		setInputPasswordValue(e.target.value);
-	};
-
 	const handleSaveClick = async (field) => {
 		switch (field) {
 			case "name":
 				setShowNameInputs(!showNameInputs);
 				setnewFirstName(firstName);
 				setNewLastName(lastName);
-				await handleUpdateUserData({ firstName: firstName, lastName: lastName });
+				await handleUpdateUserData({
+					firstName: firstName,
+					lastName: lastName,
+				});
 				break;
 			case "email":
 				setShowEmailInputs(!showEmailInputs);
 				setNewEmail(email);
 				await handleUpdateUserData({ email: email });
-				break;
-			case "password":
-				setSavedPasswordValue(inputPasswordValue);
 				break;
 			case "dob":
 				setShowDOBInputs(!showDOBInputs);
@@ -133,7 +139,7 @@ const UserProfile = () => {
 		}
 		setShowInputs(false);
 	};
-	
+
 	const handleDeleteClick = async (field) => {
 		switch (field) {
 			case "name":
@@ -146,10 +152,7 @@ const UserProfile = () => {
 				setEmail("");
 				setNewEmail("");
 				break;
-			case "password":
-				setInputPasswordValue("");
-				setSavedPasswordValue("");
-				break;
+
 			case "dob":
 				setDay("");
 				setMonth("");
@@ -162,13 +165,14 @@ const UserProfile = () => {
 		setShowInputs(false);
 		await handleDeleteUserData();
 	};
-	
 
 	const days = Array.from({ length: 31 }, (_, index) => index + 1);
 	const months = Array.from({ length: 12 }, (_, index) => index + 1);
 	const years = Array.from({ length: 80 }, (_, index) => 2022 - index);
-	if(loading||!email){return null}
-	
+	if (loading || !email) {
+		return null;
+	}
+
 	return (
 		<div className="container mx-auto ">
 			<h1 className="flex m-4 text-4xl font-bold justify-normal">
@@ -248,7 +252,7 @@ const UserProfile = () => {
 							</>
 						)}
 					</tr>
-			
+
 					<tr>
 						<td>
 							<p className="inline mr-2 text-xl">Email Address</p>
@@ -272,9 +276,7 @@ const UserProfile = () => {
 								<td>
 									<button
 										className="w-20 bg-blue-500 rounded-md h-9 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-violet-300 ml-80"
-										onClick={() =>
-											handleSaveClick("email")
-										}
+										onClick={() => handleSaveClick("email")}
 									>
 										Save
 									</button>
@@ -288,9 +290,7 @@ const UserProfile = () => {
 								<td>
 									<button
 										className="w-20 bg-blue-500 rounded-md h-9 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-violet-300 ml-80"
-										onClick={() =>
-											handleEditClick("email")
-										}
+										onClick={() => handleEditClick("email")}
 									>
 										Edit
 									</button>
@@ -307,60 +307,6 @@ const UserProfile = () => {
 								</td>
 							</>
 						)}
-					</tr>
-
-                    <tr>
-    <td>
-        <p className="inline text-xl">Password</p>
-    </td>
-    {showInputs ? (
-    <>
-        <td className="flex flex-col">
-            <label htmlFor="" className="m-2 text-lg font-bold ">
-                Password
-            </label>
-            <input
-                type="password"
-                className="inline ml-2 border border-blue-600 rounded h-9 w-72"
-                value={inputPasswordValue}
-                onChange={handleInputPasswordChange}
-            />
-        </td>
-        <td>
-            <button
-                className="w-20 bg-blue-500 rounded-md h-9 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-violet-300 ml-80"
-                onClick={() => handleSaveClick("password")}
-            >
-                Save
-            </button>
-        </td>
-    </>
-) : (
-    <>
-        <td>
-            <p className="inline">{savedPasswordValue}</p>
-        </td>
-        <td>
-        <button
-    className="w-20 bg-blue-500 rounded-md h-9 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-violet-300 ml-80"
-    onClick={() => {
-        handleEditClick("password");
-        setShowInputs(true);
-    }}
->
-    Edit
-</button>
-            {savedPasswordValue && (
-                <button
-                    className="w-20 bg-blue-500 rounded-md h-9 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-violet-300 ml-80"
-                    onClick={() => handleDeleteClick("password")}
-                >
-                    Delete
-                </button>
-            )}
-        </td>
-    </>
-)}
 					</tr>
 
 					<tr>

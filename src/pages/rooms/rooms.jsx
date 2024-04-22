@@ -80,7 +80,7 @@ const Rooms = () => {
 			navigate("/booking", {
 				state: {
 					rooms: selectedRooms,
-					date: location.state.date,
+					date: location.date,
 					img: hotel.hotelMainImage,
 				},
 			});
@@ -88,9 +88,7 @@ const Rooms = () => {
 	};
 	return (
 		<>
-			<Container
-				className="pt-20 flex flex-col justify-around"
-			>
+			<Container className="pt-20 flex flex-col justify-around">
 				<Container>
 					<Row>
 						<Col>

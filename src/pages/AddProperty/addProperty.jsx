@@ -52,7 +52,7 @@ export default function AddProperty() {
 			hotelSubDescription,
 			hotelSubDescription_ar,
 			hotelType,
-			hotelRating,
+			hotelStar,
 		} = data;
 
 		const hotelsNewData = {
@@ -70,7 +70,7 @@ export default function AddProperty() {
 			hotelSubDescription: hotelSubDescription,
 			hotelSubDescription_ar: hotelSubDescription_ar,
 			hotelType: hotelType,
-			hotelRating: hotelRating,
+			hotelRating: hotelStar,
 			approved: false,
 		};
 		console.log(hotelsNewData.hotelRating);
@@ -78,7 +78,7 @@ export default function AddProperty() {
 			.post("/hotels/owners", hotelsNewData)
 			.then((response) => {
 				console.log(response);
-				window.location.reload();
+				// window.location.reload();
 			})
 			.catch((err) => {
 				console.log("error", err);

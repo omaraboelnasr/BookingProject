@@ -2,6 +2,9 @@ import React from "react";
 import { useLocation } from "react-router";
 import axiosInstance from "../../axios";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const BookingCard = () => {
 	const initialOptions = {
@@ -11,14 +14,13 @@ const BookingCard = () => {
 		"disable-funding": "paylater,venmo,card",
 		"data-sdk-integration-source": "integrationbuilder_sc",
 	};
-	// const [message, setMessage] = useState("");
+	const navigate = useNavigate();
+	const [booking, setBooking] = useState(false);
 	const location = useLocation();
 	const { rooms, date, img } = location.state;
 	const totalPrice = location.state.rooms.reduce((total, room) => {
 		return total + room.quantity * room.room.price;
 	}, 0);
-
-	console.log(date);
 
 	const user = localStorage.getItem("userId");
 	const room = rooms.map((room) => room.room._id);
@@ -58,7 +60,15 @@ const BookingCard = () => {
 			axiosInstance
 				.post("/booking", bookingData)
 				.then((response) => {
-					console.log("Booking created successfully", response.data);
+					console.log(
+						"Booking created successfully",
+						response.data.message
+					);
+					if (
+						response.data.message === "booking added successfully"
+					) {
+						setBooking(true);
+					}
 				})
 				.catch((error) => {
 					console.error(
@@ -71,6 +81,13 @@ const BookingCard = () => {
 			);
 		});
 	};
+
+	useEffect(() => {
+		if (booking === true) {
+			navigate("/");
+			window.alert("Transaction added successfully");
+		}
+	}, [booking]);
 
 	return (
 		<main className="container mt-10">
