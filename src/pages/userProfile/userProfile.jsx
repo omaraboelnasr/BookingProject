@@ -252,63 +252,6 @@ const UserProfile = () => {
 							</>
 						)}
 					</tr>
-
-					<tr>
-						<td>
-							<p className="inline mr-2 text-xl">Email Address</p>
-						</td>
-						{showEmailInputs ? (
-							<>
-								<td className="flex flex-col">
-									<label
-										htmlFor=""
-										className="m-2 text-lg font-bold "
-									>
-										Email
-									</label>
-									<input
-										type="email"
-										className="inline ml-2 border border-blue-600 rounded h-9 w-72"
-										value={email}
-										onChange={handleEmailInput}
-									/>
-								</td>
-								<td>
-									<button
-										className="w-20 bg-blue-500 rounded-md h-9 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-violet-300 ml-80"
-										onClick={() => handleSaveClick("email")}
-									>
-										Save
-									</button>
-								</td>
-							</>
-						) : (
-							<>
-								<td>
-									<p className="inline">{email}</p>
-								</td>
-								<td>
-									<button
-										className="w-20 bg-blue-500 rounded-md h-9 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-violet-300 ml-80"
-										onClick={() => handleEditClick("email")}
-									>
-										Edit
-									</button>
-									{newEmail && (
-										<button
-											className="w-20 bg-blue-500 rounded-md h-9 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-violet-300 ml-80"
-											onClick={() =>
-												handleDeleteClick("email")
-											}
-										>
-											Delete
-										</button>
-									)}
-								</td>
-							</>
-						)}
-					</tr>
-
 					<tr>
 						<td>
 							<p className="inline text-xl">Date of birth</p>

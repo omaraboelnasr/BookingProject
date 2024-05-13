@@ -54,9 +54,7 @@ const BookingCard = () => {
 		return actions.order.capture().then((orderData) => {
 			const transaction =
 				orderData.purchase_units[0].payments.captures[0];
-
 			console.log("Transaction result: ", orderData);
-
 			axiosInstance
 				.post("/booking", bookingData)
 				.then((response) => {
