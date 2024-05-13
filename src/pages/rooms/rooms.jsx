@@ -45,6 +45,7 @@ const Rooms = () => {
 			setHotel(hotelData);
 		} catch (err) {
 			console.log(err);
+			console.log(err);
 		}
 	};
 	const getRooms = async () => {
