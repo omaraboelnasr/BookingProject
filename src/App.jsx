@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom";
 import "./App.css";
 import AppLayOut from "./components/appLayOut/appLayOut";
 import Home from "./pages/home/home";
@@ -22,7 +22,7 @@ import BookingCard from "./pages/bookingCard/bookingCard";
 import { classNames } from "classnames";
 import AddProperty from "./pages/AddProperty/addProperty";
 
-const routes = createBrowserRouter([
+const routes = createHashRouter([
 	{
 		path: "/",
 		element: <AppLayOut />,
